@@ -1,0 +1,769 @@
+{
+  "module_id": "sanitarios",
+  "title": "Sanitarios",
+  "entity_type": "SANITARIO",
+  "items": [
+    {
+      "code": "1",
+      "text": "Dimensiones",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_1",
+      "help": ""
+    },
+    {
+      "code": "2",
+      "text": "Uso del baño",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_2",
+      "help": ""
+    },
+    {
+      "code": "2.1",
+      "text": "Uso diferenciado del baño (Marque las opciones que corresponda)",
+      "type": "question",
+      "options": [
+        "Solo hombres",
+        "Solo mujeres",
+        "¿Cuántos?",
+        "Indistinto"
+      ],
+      "qtype": "checkbox",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_2_1",
+      "help": ""
+    },
+    {
+      "code": "2.2",
+      "text": "Cuenta con espacio accesible para personas con discapacidad (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_2_2",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "Divisorias internas",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_3",
+      "help": ""
+    },
+    {
+      "code": "3.1",
+      "text": "¿Tiene divisorias internas? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_3_1",
+      "help": ""
+    },
+    {
+      "code": "3.2",
+      "text": "¿Con cuantos boxes cuenta el sanitario?",
+      "type": "question",
+      "options": [
+        "Cantidad"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_3_2",
+      "help": ""
+    },
+    {
+      "code": "3.4",
+      "text": "¿Cuál es el estado de las puertas de los boxes? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Cerramientos mayormente completos",
+        "Cerramientos mayormente incompletos (con partes rotas o faltantes que impide privacidad)",
+        "No tiene"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_3_4",
+      "help": ""
+    },
+    {
+      "code": "4",
+      "text": "Situación",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_4",
+      "help": ""
+    },
+    {
+      "code": "4.1",
+      "text": "¿Qué tipo de artefactos hay y cuántos?",
+      "type": "question",
+      "options": [
+        "Instalaciones",
+        "Cantidad",
+        "Estado (Cantidad)",
+        "Inodoro",
+        "Mingitorios",
+        "Mingitorio de material",
+        "Letrina común",
+        "Excusado tipo municipal",
+        "Lavatorio",
+        "Ducha"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_4_1",
+      "help": ""
+    },
+    {
+      "code": "4.3",
+      "text": "Las instalaciones, ¿presentan pérdidas o filtraciones?",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Desagüe",
+        "Agua corriente",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_4_3",
+      "help": ""
+    },
+    {
+      "code": "5",
+      "text": "Techo",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_5",
+      "help": ""
+    },
+    {
+      "code": "5.1",
+      "text": "Material predominante en el techo (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Losa H°A°",
+        "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°",
+        "Chapa termoacústica con estructura metálica",
+        "Chapa de zinc con estructura metálica",
+        "Chapa de fibrocemento con estructura metálica",
+        "Paja con estructura de madera"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_5_1",
+      "help": "Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 5.2; 5.3 y 5.11 Nota: Si marco ésta opción PASAR A LA PREGUNTA 5.4. al 5.8 y 5.11 Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 5.9, 5.10 y 5.11 Nota: Si marcó ésta opción PASAR A LA PREGUNTA 5.9. al 5.11 Nota: Si marcó ésta opción PASAR A PARED."
+    },
+    {
+      "code": "5.2",
+      "text": "¿Hay fisuras en la losa? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Losa H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_2",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.3",
+      "text": "¿Hay huecos en la losa? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Losa H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_3",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.4",
+      "text": "¿Hay defectos en las vigas o tirantes? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Viga",
+        "Tirantes",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_4",
+      "help": "Especifícar defecto en (Marque): Especifícar cantidad de tirantes afectados"
+    },
+    {
+      "code": "5.5",
+      "text": "¿Hay tejuelones sin apoyo? (una parte del tejuelón no descansa sobre el tirante) (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_5",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.6",
+      "text": "¿Hay tejuelones o tejuelitas rotos/as? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_6",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.7",
+      "text": "¿Hay tirantes de madera más bajos que otros? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Cantidad",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_7",
+      "help": ""
+    },
+    {
+      "code": "5.8",
+      "text": "¿Hay deslizamientos de las partes del techo? (Ej. Vigas, tirantes corridos de lugar) (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_8",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.9",
+      "text": "¿Hay corrosión en la estructura metálica? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Chapa termoacústica con estructura metálica",
+            "Chapa de zinc con estructura metálica",
+            "Chapa de fibrocemento con estructura metálica"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_9",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.10",
+      "text": "¿Hay chapas rotas? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Chapa termoacústica con estructura metálica",
+            "Chapa de zinc con estructura metálica",
+            "Chapa de fibrocemento con estructura metálica"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_10",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.11",
+      "text": "¿Hay señales de goteras o humedad en el techo? (Ej. Manchas, aureolas de humedad, moho) (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "5.1",
+          "op": "in",
+          "values": [
+            "Losa H°A°",
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°",
+            "Chapa termoacústica con estructura metálica",
+            "Chapa de zinc con estructura metálica",
+            "Chapa de fibrocemento con estructura metálica"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_5_11",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "6",
+      "text": "Pared",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_6",
+      "help": ""
+    },
+    {
+      "code": "6.1",
+      "text": "Material predominante en la pared (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Ladrillo",
+        "Madera"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_6_1",
+      "help": "Nota: Si marcó esta opción PASAR A LA PREG. 6.2 al 6.6 Nota: Si marcó esta opción PASAR A LA PREG. 6.7 Nota: Si marcó esta opción PASAR A PISO."
+    },
+    {
+      "code": "6.2",
+      "text": "¿Hay fisuras o grietas en las paredes? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Ladrillo"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_6_2",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "6.3",
+      "text": "¿Hay paredes inclinadas? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Ladrillo"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_6_3",
+      "help": ""
+    },
+    {
+      "code": "6.4",
+      "text": "Las paredes, ¿tienen revoque? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Ladrillo"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_6_4",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "6.5",
+      "text": "¿Hay desprendimiento de revoque? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Ladrillo"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_6_5",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "6.6",
+      "text": "¿Hay manchas de humedad? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Ladrillo"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_6_6",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "6.7",
+      "text": "¿Hay maderas rotas? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Madera"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "sanitarios_6_7",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "7",
+      "text": "Piso",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_7",
+      "help": ""
+    },
+    {
+      "code": "7.1",
+      "text": "Material predominante en el piso (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Baldosas (Layota, granito, ceramica, calcárea)",
+        "Ladrillo",
+        "Alisada o carpeta de cemento",
+        "Tierra"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_7_1",
+      "help": "Nota: Si marcó esta opción PASAR A INSTALACIÓN ELECTRICA"
+    },
+    {
+      "code": "7.2",
+      "text": "¿Cuál es el estado del piso? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Completo sin roturas",
+        "Completo con roturas",
+        "Remendados",
+        "Incompleto",
+        "Con hundimientos",
+        "Otro (Especificar)"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_7_2",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "7.3",
+      "text": "¿Posee revestimiento?",
+      "type": "question",
+      "options": [
+        "Completo sin roturas",
+        "Completo con roturas",
+        "Remendados",
+        "Incompleto",
+        "Con hundimientos",
+        "Otro (Especificar)",
+        "Agregar items de pinturas y aberturas, iguales a planilla de Aula"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_7_3",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "8",
+      "text": "Instalación eléctrica",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_8",
+      "help": ""
+    },
+    {
+      "code": "8.1",
+      "text": "¿Cuenta con tablero independiente? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_8_1",
+      "help": ""
+    },
+    {
+      "code": "8.2",
+      "text": "Estado del tablero independiente (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_8_2",
+      "help": ""
+    },
+    {
+      "code": "8.3",
+      "text": "¿Cómo está realizada la instalación eléctrica? (Marque las opciones que correspondan)",
+      "type": "question",
+      "options": [
+        "Cables en electroductos embutidos",
+        "Cables en canaletas externas",
+        "Cables externos",
+        "Cables en electroductos externos"
+      ],
+      "qtype": "checkbox",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_8_3",
+      "help": ""
+    },
+    {
+      "code": "8.4",
+      "text": "Tipo de Artefactro de iluminacion del Sanitario (Marque las opciones que correspondan)",
+      "type": "question",
+      "options": [
+        "Fluorescente",
+        "Foco de bajo consumo",
+        "Tubo LED",
+        "Foco LED",
+        "Otros"
+      ],
+      "qtype": "checkbox",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_8_4",
+      "help": "Especificar cantidad dañada"
+    },
+    {
+      "code": "8.5",
+      "text": "El Sanitario cuenta con tomacorrientes?",
+      "type": "question",
+      "options": [
+        "Estado",
+        "Cantidad",
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_8_5",
+      "help": ""
+    },
+    {
+      "code": "9",
+      "text": "Interverción",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_9",
+      "help": ""
+    },
+    {
+      "code": "9.1",
+      "text": "¿Requiere intervención inmediata?",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_9_1",
+      "help": ""
+    },
+    {
+      "code": "10",
+      "text": "Observaciones",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "sanitarios_sec_10",
+      "help": ""
+    }
+  ],
+  "photo_required": true
+}

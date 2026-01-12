@@ -1,0 +1,710 @@
+{
+  "module_id": "laboratorios",
+  "title": "Laboratorios",
+  "entity_type": "LABORATORIO",
+  "items": [
+    {
+      "code": "1",
+      "text": "Dimensiones",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_1",
+      "help": ""
+    },
+    {
+      "code": "2",
+      "text": "Situación",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_2",
+      "help": ""
+    },
+    {
+      "code": "2.1",
+      "text": "Seleccione la situación actual (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "En uso",
+        "Sin uso",
+        "En construcción"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_2_1",
+      "help": "Especifica motivos:___________________ Nota: Si marcó \"En Construcción\" pasar a relevar datos de la siguiente Aula/Dependencia/Laboratorio"
+    },
+    {
+      "code": "3",
+      "text": "Techo",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_3",
+      "help": ""
+    },
+    {
+      "code": "3.1",
+      "text": "Material predominante en el techo (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Losa H°A°",
+        "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°",
+        "Chapa termoacústica con estructura metálica",
+        "Chapa de zinc con estructura metálica",
+        "Chapa de fibrocemento con estructura metálica",
+        "Paja con estructura de madera"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_3_1",
+      "help": "Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.2, 3.3 y 3.11 Nota: Si marco ésta opción PASAR A LA PREGUNTA 3.4. al 3.8 y 3.11 Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.9, 3.10 y 3.11 Nota: Si marcó ésta opción PASAR A LA PREGUNTA 3.9. al 3.11 Nota: Si marcó ésta opción PASAR A PARED."
+    },
+    {
+      "code": "3.2",
+      "text": "¿Hay fisuras en la losa? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Losa H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_2",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "3.3",
+      "text": "¿Hay huecos en la losa, deformacion de losa, pandeo? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Losa H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_3",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "3.4",
+      "text": "¿Hay defectos, roturas del material en las vigas o tirantes? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Viga",
+        "Tirantes",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_4",
+      "help": "Especifícar cantidad de tirantes afectados"
+    },
+    {
+      "code": "3.5",
+      "text": "¿Hay tejuelones sin apoyo? (una parte del tejuelón no descansa sobre el tirante) (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_5",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "3.6",
+      "text": "¿Hay tejuelones o tejuelitas rotos/as? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_6",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "3.7",
+      "text": "¿Hay tirantes de madera de diferentes dimensiones? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Cantidad",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_7",
+      "help": ""
+    },
+    {
+      "code": "3.8",
+      "text": "¿Hay deslizamientos de las partes del techo? (Ej. Vigas, tirantes corridos de lugar) (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_8",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "3.9",
+      "text": "¿Hay corrosión en la estructura metálica? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Chapa termoacústica con estructura metálica",
+            "Chapa de zinc con estructura metálica",
+            "Chapa de fibrocemento con estructura metálica"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_9",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "3.10",
+      "text": "¿Hay chapas rotas? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Chapa termoacústica con estructura metálica",
+            "Chapa de zinc con estructura metálica",
+            "Chapa de fibrocemento con estructura metálica"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_10",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "3.11",
+      "text": "¿Hay señales de goteras o humedad en el techo? (Ej. Manchas, aureolas de humedad, moho) (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "3.1",
+          "op": "in",
+          "values": [
+            "Losa H°A°",
+            "Material cerámico (Teja/tejuelón/tejuelita) con estructura de madera o de H°A°",
+            "Chapa termoacústica con estructura metálica",
+            "Chapa de zinc con estructura metálica",
+            "Chapa de fibrocemento con estructura metálica"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_3_11",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "4",
+      "text": "Pared",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_4",
+      "help": ""
+    },
+    {
+      "code": "4.1",
+      "text": "Material predominante en la pared (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Ladrillo",
+        "Madera",
+        "."
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_4_1",
+      "help": ""
+    },
+    {
+      "code": "4.2",
+      "text": "¿Hay fisuras o grietas en las paredes? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_4_2",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "4.3",
+      "text": "¿Hay paredes con deformidad evidente, desaplomado? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_4_3",
+      "help": ""
+    },
+    {
+      "code": "4.4",
+      "text": "Las paredes, ¿tienen revoque? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_4_4",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "4.5",
+      "text": "¿Hay desprendimiento de revoque? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_4_5",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "4.6",
+      "text": "¿Hay manchas de humedad? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_4_6",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "4.7",
+      "text": "¿Hay maderas rotas en las paredes? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_4_7",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5",
+      "text": "Piso",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_5",
+      "help": ""
+    },
+    {
+      "code": "5.1",
+      "text": "Material predominante en el piso (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Baldosas (Layota, granito, ceramica, calcárea)",
+        "Ladrillo",
+        "Alisada o carpeta de cemento",
+        "Tierra",
+        "Agregar items de pintura y aberturas, mismos a la planilla de Aulas"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_5_1",
+      "help": ""
+    },
+    {
+      "code": "5.2",
+      "text": "¿Cuál es el estado del piso? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Completo sin roturas",
+        "Completo con roturas",
+        "Remendados",
+        "Incompleto",
+        "Con hundimientos",
+        "Otro (Especificar)"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_5_2",
+      "help": "Espeficar m2 afectados"
+    },
+    {
+      "code": "5.3",
+      "text": "¿Posee euipamiento fijo?",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Item agregado",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_5_3",
+      "help": ""
+    },
+    {
+      "code": "6",
+      "text": "Instalación eléctrica",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_6",
+      "help": ""
+    },
+    {
+      "code": "6.1",
+      "text": "¿Cuenta con tablero independiente? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_6_1",
+      "help": "Nota: Si marcó \"NO\" pasar a la Pregunta 6.3"
+    },
+    {
+      "code": "6.2",
+      "text": "Estado del tablero independiente (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Bueno",
+        "Agregar capacidad de la TM de corte del tablero",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_6_2",
+      "help": ""
+    },
+    {
+      "code": "6.3",
+      "text": "¿Cómo está realizada la instalación eléctrica? (Marque las opciones que correspondan)",
+      "type": "question",
+      "options": [
+        "Cables en electroductos embutidos",
+        "Cables en canaletas/bandejas externas",
+        "Cables externos",
+        "Cables en electroductos externos"
+      ],
+      "qtype": "checkbox",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_6_3",
+      "help": ""
+    },
+    {
+      "code": "6.4",
+      "text": "¿La Dependencia cuenta con Aquipo de Aire Acondicionado? (Marque las opciones que correspondan)",
+      "type": "question",
+      "options": [
+        "Estado",
+        "AA1",
+        "AA2",
+        "AA3",
+        "AAn",
+        "Agregar capacidad del equipo AA BTU/h",
+        "Bueno",
+        "12000",
+        "Regular",
+        "18000",
+        "Malo",
+        "ITEMS AGREGADOS"
+      ],
+      "qtype": "checkbox",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_6_4",
+      "help": ""
+    },
+    {
+      "code": "6.5",
+      "text": "¿La Dependencia sufre de cortes por problemas electricos?",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_6_5",
+      "help": ""
+    },
+    {
+      "code": "6.6",
+      "text": "Tipo de Artefactro de iluminacion del Dependencia (Marque las opciones que correspondan)",
+      "type": "question",
+      "options": [
+        "Fluorescente",
+        "Foco de bajo consumo",
+        "Tubo LED",
+        "Foco LED",
+        "Otros"
+      ],
+      "qtype": "checkbox",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_6_6",
+      "help": "Especificar cantidad dañada"
+    },
+    {
+      "code": "6.7",
+      "text": "La Dependencia cuenta con ventiladores?",
+      "type": "question",
+      "options": [
+        "Estado",
+        "Vt1",
+        "Vt2",
+        "Vt3",
+        "Vt4",
+        "Vtn",
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_6_7",
+      "help": ""
+    },
+    {
+      "code": "6.8",
+      "text": "La Dependencia cuenta con tomacorrientes?",
+      "type": "question",
+      "options": [
+        "Estado",
+        "Cantidad",
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "6.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "laboratorios_6_8",
+      "help": ""
+    },
+    {
+      "code": "8",
+      "text": "Interverción",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_8",
+      "help": ""
+    },
+    {
+      "code": "8.1",
+      "text": "¿Requiere intervención inmediata? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_8_1",
+      "help": ""
+    },
+    {
+      "code": "9",
+      "text": "Observaciones",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "laboratorios_sec_9",
+      "help": ""
+    }
+  ],
+  "photo_required": true
+}

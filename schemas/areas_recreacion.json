@@ -1,0 +1,7 @@
+{
+  "module_id": "areas_recreacion",
+  "title": "Áreas de recreación sin techo",
+  "entity_type": "AREA_RECREACION",
+  "items": [],
+  "photo_required": true
+}

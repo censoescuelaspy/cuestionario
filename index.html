@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SIDIE - Relevamiento</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <noscript>Esta aplicación requiere JavaScript habilitado.</noscript>
+
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <div class="brand__mark">SIDIE</div>
+        <div class="brand__text">
+          <div class="brand__title">Relevamiento de Infraestructura</div>
+          <div class="brand__subtitle" id="appSubtitle">Modo web, con soporte offline</div>
+        </div>
+      </div>
+    </div>
+    <div class="topbar__right">
+      <div class="badge" id="netBadge">Offline</div>
+      <button class="btn btn--ghost" id="btnSync" title="Sincronizar pendientes" disabled>Sincronizar</button>
+      <div class="userbox" id="userBox" hidden>
+        <span id="userLabel"></span>
+        <button class="btn btn--ghost" id="btnLogout">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="appRoot"></main>
+
+  <footer class="footer">
+    <div class="footer__left">DGIE-MEC, SIDIE</div>
+    <div class="footer__right" id="queueInfo">Pendientes: 0</div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <div class="modal__dialog">
+      <div class="modal__title" id="modalTitle"></div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

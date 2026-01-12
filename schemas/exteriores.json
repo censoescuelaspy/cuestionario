@@ -1,0 +1,94 @@
+{
+  "module_id": "exteriores",
+  "title": "Áreas exteriores",
+  "entity_type": "LOCAL",
+  "items": [
+    {
+      "code": "1",
+      "text": "El local escolar cuenta con:",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "exteriores_sec_1",
+      "help": ""
+    },
+    {
+      "code": "1.1",
+      "text": "Escenario",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "exteriores_1_1",
+      "help": ""
+    },
+    {
+      "code": "1.2",
+      "text": "Tiene iluminación exterior?",
+      "type": "question",
+      "options": [
+        "Total",
+        "Funciona",
+        "Sí",
+        "Parcial",
+        "No",
+        "Nulo"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "exteriores_1_2",
+      "help": ""
+    },
+    {
+      "code": "1.3",
+      "text": "Cuenta con plataforma de Mástil",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "exteriores_1_3",
+      "help": ""
+    },
+    {
+      "code": "1.4",
+      "text": "Cuenta con camineros",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "exteriores_1_4",
+      "help": ""
+    },
+    {
+      "code": "1.5",
+      "text": "Cuenta con rampas de acceso al local escolar",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Cumple con la norma INTN de accesibilidad",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "exteriores_1_5",
+      "help": ""
+    }
+  ],
+  "photo_required": true
+}

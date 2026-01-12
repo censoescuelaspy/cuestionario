@@ -1,0 +1,383 @@
+{
+  "module_id": "general",
+  "title": "Sección General",
+  "entity_type": "LOCAL",
+  "items": [
+    {
+      "code": "1",
+      "text": "Localización geográfica e identificación del local escolar",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "general_sec_1",
+      "help": ""
+    },
+    {
+      "code": "1",
+      "text": "Coordenadas de localización (complete con los datos que aparece en el GPS)",
+      "type": "question",
+      "options": [
+        "Gra, Min, Seg ="
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_1",
+      "help": ""
+    },
+    {
+      "code": "2",
+      "text": "Identificación del local escolar y Acceso (complete)",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "general_sec_2",
+      "help": ""
+    },
+    {
+      "code": "1",
+      "text": "Código de Local",
+      "type": "question",
+      "options": [],
+      "qtype": "text",
+      "show_if": [],
+      "required": false,
+      "id": "general_1",
+      "help": ""
+    },
+    {
+      "code": "2",
+      "text": "Departamento",
+      "type": "question",
+      "options": [],
+      "qtype": "text",
+      "show_if": [],
+      "required": false,
+      "id": "general_2",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "Distrito",
+      "type": "question",
+      "options": [],
+      "qtype": "text",
+      "show_if": [],
+      "required": false,
+      "id": "general_3",
+      "help": ""
+    },
+    {
+      "code": "4",
+      "text": "Localidad",
+      "type": "question",
+      "options": [],
+      "qtype": "text",
+      "show_if": [],
+      "required": false,
+      "id": "general_4",
+      "help": ""
+    },
+    {
+      "code": "5",
+      "text": "Dirección",
+      "type": "question",
+      "options": [],
+      "qtype": "text",
+      "show_if": [],
+      "required": false,
+      "id": "general_5",
+      "help": ""
+    },
+    {
+      "code": "6",
+      "text": "El local escolar cuenta con rampas de acceso para estudiantes con discapacidad (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Cumple con la norma INTN de accesibilidad",
+        "No",
+        "Totalmente, parcialmente, no"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_6",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "Instalación eléctrica general",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "general_sec_3",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "1 El local escolar cuenta con energía electrica",
+      "type": "question",
+      "options": [
+        "SI",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3",
+      "help": ""
+    },
+    {
+      "code": "3.2",
+      "text": "Provisión de energia electrica",
+      "type": "question",
+      "options": [
+        "ANDE",
+        "Privado",
+        "Otro (Especificar)"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_2",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "3 El local escolar cuenta con medidor",
+      "type": "question",
+      "options": [
+        "SI",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3",
+      "help": ""
+    },
+    {
+      "code": "3.4",
+      "text": "Acometida (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "El local escolar tiene acometida",
+        "SI",
+        "Cantidad",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_4",
+      "help": ""
+    },
+    {
+      "code": "3.5",
+      "text": "Estado",
+      "type": "question",
+      "options": [
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_5",
+      "help": ""
+    },
+    {
+      "code": "3.6",
+      "text": "Cual es el tipo de instalación de la acometida",
+      "type": "question",
+      "options": [
+        "Tipo de Instalación",
+        "Acometida 1",
+        "Acometida 2",
+        "Acometida 3",
+        "Acometida n",
+        "Trifásica",
+        "Monofásica"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_6",
+      "help": ""
+    },
+    {
+      "code": "3.7",
+      "text": "Tiene tablero principal (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "SI",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_7",
+      "help": ""
+    },
+    {
+      "code": "3.8",
+      "text": "Estado del tablero principal",
+      "type": "question",
+      "options": [
+        "Entrada 1",
+        "Entrada 2",
+        "Entrada 3",
+        "Entrada n",
+        "Al marcar el estado agregar la capacidad de la TM de corte General del tablero",
+        "Bueno",
+        "25A",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_8",
+      "help": ""
+    },
+    {
+      "code": "3.9",
+      "text": "Tiene Tablero Seccional (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "SI",
+        "Cantidad de tableros",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_9",
+      "help": ""
+    },
+    {
+      "code": "3.10",
+      "text": "Estado del Tablero Seccional (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Estado",
+        "Tablero 1",
+        "Tablero 2",
+        "Tablero 3",
+        "Tablero n",
+        "Al marcar el estado agregar la capacidad de la TM de corte General del tablero",
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_10",
+      "help": ""
+    },
+    {
+      "code": "3.11",
+      "text": "La instalacion cuenta con sistema de puesta a tierra",
+      "type": "question",
+      "options": [
+        "SI",
+        "No",
+        "Item agregado"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_3_11",
+      "help": ""
+    },
+    {
+      "code": "4",
+      "text": "Desague Pluvial",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "general_sec_4",
+      "help": ""
+    },
+    {
+      "code": "4.1",
+      "text": "Desague pluvial (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Canalizado",
+        "Cielo abierto",
+        "No",
+        "5.",
+        "Servicio de conexión a Internet",
+        "5.1 El local escolar cuenta con servicio de Internet",
+        "Items agregados",
+        "SI",
+        "5.2",
+        "Ente prestador del servicio de Internet",
+        "5.3Tipo de Servicio de Internet",
+        "Fibra optica",
+        "Coaxil",
+        "Satelital",
+        "Otros",
+        "5.3Tipo de entrada de Servicio de Internet",
+        "Aereo",
+        "Embutido",
+        "Subterraneo",
+        "5.4",
+        "Estado del Servicio",
+        "Servicio 1",
+        "Servicio 2",
+        "Servicio n",
+        "Bueno",
+        "Regular",
+        "Malo",
+        "5.5",
+        "Cuenta con equipos de Routers instalados?",
+        "Si",
+        "Cantidad",
+        "Dañados",
+        "6.",
+        "Sistema de Vigilancia CCTV",
+        "6.1 El local escolar cuenta con sistema de vigilancia CCTV",
+        "6.2",
+        "Cuantas unidades de camaras dispone:",
+        "7.",
+        "PCI",
+        "7.1 El local escolar cuenta con Detectores humo-calor, termicos, termovelocimetros.",
+        "7.2 El local escolar cuenta con pulsadores manuales de emergencia y su respectiva sirena:",
+        "7.3 El local escolar cuenta con luces de emergencia:",
+        "7.4 El local escolar cuenta con luces de emergencia:",
+        "7.5 El local escolar cuenta con extintores:",
+        "Vencidos/sin carga",
+        "7.6 El local escolar cuenta con sistema de combate hidraulico:",
+        "Cantidad de BIE",
+        "Con presion",
+        "Cantidad de rociadores",
+        "Cantidad de BIS",
+        "7.7 Capacidad de la motobomba de impulsion del sistema",
+        "HP",
+        "7.8",
+        "Capacidad de reserva del Tanque",
+        "lts"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "general_4_1",
+      "help": ""
+    }
+  ],
+  "photo_required": true
+}

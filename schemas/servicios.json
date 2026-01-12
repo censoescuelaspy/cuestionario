@@ -1,0 +1,181 @@
+{
+  "module_id": "servicios",
+  "title": "Servicios básicos",
+  "entity_type": "LOCAL",
+  "items": [
+    {
+      "code": "1",
+      "text": "SERVICIO DE AGUA",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "servicios_sec_1",
+      "help": ""
+    },
+    {
+      "code": "1.1",
+      "text": "El local escolar cuenta con servicio de abastacimiento de agua",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "servicios_1_1",
+      "help": "Nota: Si marcó la opción \"NO\" ,PASAR A 2. SERVICIO SANITARIO"
+    },
+    {
+      "code": "1.2",
+      "text": "El agua utilizada por el local escolar proviene de:",
+      "type": "question",
+      "options": [
+        "ESSAP (ex-corposana)",
+        "Junta de Saneamiento (SENASA)",
+        "Prestador / red comunitaria",
+        "Prestador /red privada",
+        "pozo artesiano",
+        "pozo con bomba",
+        "HP",
+        "pozo sin bomba",
+        "manantial o naciente",
+        "tajamar, río, arroyo",
+        "agua de lluvia",
+        "aguatero",
+        "otra fuente (especificar)"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "1.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "servicios_1_2",
+      "help": ""
+    },
+    {
+      "code": "2",
+      "text": "SERVICIOS SANITARIO",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "servicios_sec_2",
+      "help": ""
+    },
+    {
+      "code": "2.1",
+      "text": "El local escolar cuenta con baño e instalaciones sanitarias con agua corriente?",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "servicios_2_1",
+      "help": ""
+    },
+    {
+      "code": "2.2",
+      "text": "¿El baño del local escolar se desagüa en:",
+      "type": "question",
+      "options": [
+        "Red de alcantarillado sanitario (cloaca)",
+        "Cámara séptica y pozo ciego",
+        "Pozo ciego, sin cámara séptica",
+        "En superficie de la tierra, hoyo abierto, zanja, arroyo, río",
+        "Letrina ventilada de hoyo seco (común con tubo de ventilación)",
+        "Letrina común de hoyo seco (con losa, techo, paredes y puertas)",
+        "Letrina común sin techo o puerta",
+        "Otro (especificar)"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "servicios_2_2",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "VIA DE ACCESO AL LOCAL ESCOLAR",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "servicios_sec_3",
+      "help": ""
+    },
+    {
+      "code": "3.1",
+      "text": "¿Cuál es la via principal de acceso al local escolar?",
+      "type": "question",
+      "options": [
+        "Asfalto",
+        "Adoquinado",
+        "Empedrado",
+        "Camino de tierra"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "servicios_3_1",
+      "help": ""
+    },
+    {
+      "code": "4",
+      "text": "CERCADO PERIMETRAL",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "servicios_sec_4",
+      "help": ""
+    },
+    {
+      "code": "4.1",
+      "text": "¿El local escolar cuetna con cerdado perimetral?",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Completo",
+        "Incompleto",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "servicios_4_1",
+      "help": ""
+    },
+    {
+      "code": "4.2",
+      "text": "Tipo de cercado perimetral",
+      "type": "question",
+      "options": [
+        "Muralla",
+        "Verjas de hierro",
+        "Tejido",
+        "Alambrado"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "servicios_4_2",
+      "help": ""
+    }
+  ],
+  "photo_required": true
+}

@@ -1,0 +1,329 @@
+{
+  "module_id": "bloques_niveles",
+  "title": "Bloques y niveles",
+  "entity_type": "BLOQUE",
+  "items": [
+    {
+      "code": "1",
+      "text": "Bloques y niveles",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_1",
+      "help": ""
+    },
+    {
+      "code": "1.1",
+      "text": "¿Cuenta el bloque con rampas de acceso para estudiantes con discapacidad? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Cumple con la norma INTN de accesibilidad",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_1_1",
+      "help": ""
+    },
+    {
+      "code": "1",
+      "text": "2 El bloque cuenta con galeria",
+      "type": "question",
+      "options": [],
+      "qtype": "number",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_1",
+      "help": ""
+    },
+    {
+      "code": "1.3",
+      "text": "Dimensiones de la galeria del bloque",
+      "type": "question",
+      "options": [
+        "Largo (m)",
+        "Ancho (m)"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_1_3",
+      "help": ""
+    },
+    {
+      "code": "1.4",
+      "text": "¿Cuáles son las dimensiones perimetro del bloque (huella)?",
+      "type": "question",
+      "options": [
+        "Largo (m)",
+        "Ancho (m)"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_1_4",
+      "help": "Nota: Cuando se tiene plantas/niveles con formas irregulares, registrar la dimensión de mayor medida."
+    },
+    {
+      "code": "2",
+      "text": "Instalación eléctrica",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_2",
+      "help": ""
+    },
+    {
+      "code": "2.1",
+      "text": "¿Cuenta el bloque con tablero seccional? (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_2_1",
+      "help": "Nota: Si marcó \"NO\" pasar a la Pregunta 2.3"
+    },
+    {
+      "code": "2.2",
+      "text": "Estado del tablero seccional (Marque una sola respuesta)",
+      "type": "question",
+      "options": [
+        "1x40A",
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "2.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "bloques_niveles_2_2",
+      "help": ""
+    },
+    {
+      "code": "2.3",
+      "text": "Tipo de alimentacion de tablero (Marque las opciones que correspondan)",
+      "type": "question",
+      "options": [
+        "Embutido",
+        "Adosado externo",
+        "Aereo",
+        "Subterraneo"
+      ],
+      "qtype": "checkbox",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_2_3",
+      "help": ""
+    },
+    {
+      "code": "2.4",
+      "text": "¿Cómo está realizada la instalación eléctrica del bloque? (Marque las opciones que correspondan)",
+      "type": "question",
+      "options": [
+        "Cables en electroductos embutidos",
+        "Cables en canaletas/bandejas externos",
+        "Cables externos",
+        "Cables en electroductos externos"
+      ],
+      "qtype": "checkbox",
+      "show_if": [
+        {
+          "q": "2.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "bloques_niveles_2_4",
+      "help": ""
+    },
+    {
+      "code": "2.5",
+      "text": "¿El bloque sufre de cortes por problemas electricos?",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Item agregado",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [
+        {
+          "q": "2.1",
+          "op": "in",
+          "values": [
+            "Sí"
+          ]
+        }
+      ],
+      "required": false,
+      "id": "bloques_niveles_2_5",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "DEPENDENCIAS Y AREA DE RECREACIÓN",
+      "type": "question",
+      "options": [],
+      "qtype": "number",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_3",
+      "help": ""
+    },
+    {
+      "code": "3.1",
+      "text": "Dependencias con que cuenta el Bloque",
+      "type": "question",
+      "options": [
+        "Nº",
+        "Dependencias",
+        "En uso",
+        "Sin uso",
+        "En construcción"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_3_1",
+      "help": ""
+    },
+    {
+      "code": "1",
+      "text": "Aulas",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_1",
+      "help": ""
+    },
+    {
+      "code": "2",
+      "text": "Dirección",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_2",
+      "help": ""
+    },
+    {
+      "code": "3",
+      "text": "Secretaría",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_3",
+      "help": ""
+    },
+    {
+      "code": "4",
+      "text": "Biblioteca",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_4",
+      "help": ""
+    },
+    {
+      "code": "5",
+      "text": "Laboratorio / Taller",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_5",
+      "help": ""
+    },
+    {
+      "code": "6",
+      "text": "Salón Multiuso",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_6",
+      "help": ""
+    },
+    {
+      "code": "7",
+      "text": "Sala de Profesores",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_7",
+      "help": ""
+    },
+    {
+      "code": "8",
+      "text": "Área de recreación con techo",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_8",
+      "help": ""
+    },
+    {
+      "code": "9",
+      "text": "Sanitarios",
+      "type": "section",
+      "options": [],
+      "qtype": null,
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_sec_9",
+      "help": ""
+    },
+    {
+      "code": "3.2",
+      "text": "El local escola cuenta con área de recreación",
+      "type": "question",
+      "options": [
+        "Sí",
+        "Con techo",
+        "Cuantos",
+        "Sin Techo",
+        "No"
+      ],
+      "qtype": "radio",
+      "show_if": [],
+      "required": false,
+      "id": "bloques_niveles_3_2",
+      "help": ""
+    }
+  ],
+  "photo_required": true
+}
