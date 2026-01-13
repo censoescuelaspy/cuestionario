@@ -26,104 +26,172 @@ export function isVisible(item, answers){
 function renderInput(item, answers, onChange){
   const qtype = item.qtype || "text";
   const code = item.code;
-  const value = answers[code];
+  const value = (answers && Object.prototype.hasOwnProperty.call(answers, code)) ? answers[code] : null;
+
+  // helpers
+  const setVal = (v) => { onChange(code, v); };
 
   if (qtype === "radio"){
-    const wrap = el("div", "");
-    (item.options || []).forEach((opt, idx) => {
+    const opts = (item.options || []).map(x => String(x));
+    // Para pocas opciones, usar botones segmentados (mejor UX en móvil)
+    if (opts.length > 0 && opts.length <= 6){
+      const wrap = el("div","segmented","");
+      opts.forEach(opt => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "segbtn" + (String(value) === opt ? " is-active" : "");
+        b.textContent = opt;
+        b.addEventListener("click", () => {
+          setVal(opt);
+          // estado visual
+          Array.from(wrap.querySelectorAll(".segbtn")).forEach(x => x.classList.remove("is-active"));
+          b.classList.add("is-active");
+        });
+        wrap.appendChild(b);
+      });
+      return wrap;
+    }
+
+    // fallback: radio clásico
+    const wrap = el("div","");
+    opts.forEach((opt, idx) => {
       const id = `r_${code}_${idx}`;
-      const row = el("label", "opt");
+      const row = el("label","radio","");
       const inp = document.createElement("input");
-      inp.type = "radio";
-      inp.name = `radio_${code}`;
-      inp.id = id;
-      inp.value = opt;
-      inp.checked = (value === opt);
-      inp.addEventListener("change", () => onChange(code, opt));
-      const span = el("span","", safeText(opt));
+      inp.type="radio";
+      inp.name=code;
+      inp.value=opt;
+      inp.checked = (String(value) === opt);
+      inp.addEventListener("change", () => setVal(opt));
       row.appendChild(inp);
-      row.appendChild(span);
+      row.appendChild(el("span","", opt));
       wrap.appendChild(row);
     });
     return wrap;
+  }
+
+  if (qtype === "select"){
+    const sel = document.createElement("select");
+    sel.className="input";
+    const opt0 = document.createElement("option");
+    opt0.value="";
+    opt0.textContent="(Seleccione)";
+    sel.appendChild(opt0);
+    (item.options || []).forEach(opt => {
+      const o = document.createElement("option");
+      o.value = String(opt);
+      o.textContent = String(opt);
+      if (String(value) === String(opt)) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.addEventListener("change", () => setVal(sel.value || null));
+    return sel;
   }
 
   if (qtype === "checkbox"){
-    const wrap = el("div", "");
-    const arr = Array.isArray(value) ? value : [];
+    // multi-selección -> array
+    const cur = Array.isArray(value) ? value.map(String) : [];
+    const wrap = el("div","chkgrid","");
     (item.options || []).forEach((opt, idx) => {
       const id = `c_${code}_${idx}`;
-      const row = el("label", "opt");
+      const row = el("label","check","");
       const inp = document.createElement("input");
-      inp.type = "checkbox";
-      inp.id = id;
-      inp.value = opt;
-      inp.checked = arr.includes(opt);
+      inp.type="checkbox";
+      inp.value=String(opt);
+      inp.checked = cur.includes(String(opt));
       inp.addEventListener("change", () => {
-        const next = new Set(arr);
-        if (inp.checked) next.add(opt); else next.delete(opt);
-        onChange(code, Array.from(next));
+        const now = new Set(cur);
+        if (inp.checked) now.add(String(opt)); else now.delete(String(opt));
+        setVal(Array.from(now));
       });
-      const span = el("span","", safeText(opt));
       row.appendChild(inp);
-      row.appendChild(span);
+      row.appendChild(el("span","", String(opt)));
       wrap.appendChild(row);
     });
     return wrap;
-  }
-
-  if (qtype === "textarea"){
-    const ta = document.createElement("textarea");
-    ta.className = "input";
-    ta.value = value != null ? String(value) : "";
-    ta.addEventListener("input", () => onChange(code, ta.value));
-    return ta;
   }
 
   if (qtype === "number"){
     const inp = document.createElement("input");
-    inp.type = "number";
-    inp.step = "any";
-    inp.className = "input";
-    inp.value = (value != null && value !== "") ? String(value) : "";
+    inp.type="number";
+    inp.className="input";
+    inp.value = (value==null) ? "" : String(value);
+    if (item.min != null) inp.min = String(item.min);
+    if (item.max != null) inp.max = String(item.max);
     inp.addEventListener("input", () => {
       const v = inp.value;
-      onChange(code, v === "" ? "" : Number(v));
+      setVal(v === "" ? null : Number(v));
     });
     return inp;
   }
 
+  if (qtype === "textarea"){
+    const ta = document.createElement("textarea");
+    ta.className="input";
+    ta.rows = item.rows || 3;
+    ta.value = (value==null) ? "" : String(value);
+    ta.addEventListener("input", () => setVal(ta.value));
+    return ta;
+  }
+
+  // default: text
   const inp = document.createElement("input");
-  inp.type = "text";
-  inp.className = "input";
-  inp.value = value != null ? String(value) : "";
-  inp.addEventListener("input", () => onChange(code, inp.value));
+  inp.type="text";
+  inp.className="input";
+  inp.value = (value==null) ? "" : String(value);
+  inp.addEventListener("input", () => setVal(inp.value));
   return inp;
 }
 
+
 export function renderForm(schema, state){
-  const root = el("div","grid","");
+  const root = el("div","form","");
   const answers = state.answers || {};
 
   const onChange = (code, v) => {
     answers[code] = v;
     state.answers = answers;
-    // re-render visibilidad
-    const items = root.querySelectorAll("[data-item-code]");
-    items.forEach(node => {
-      const code = node.getAttribute("data-item-code");
-      const item = schema.items.find(x => x.type==="question" && x.code===code);
+    // re-render visibilidad (sin reconstruir todo el DOM)
+    const nodes = root.querySelectorAll("[data-item-code]");
+    nodes.forEach(node => {
+      const c = node.getAttribute("data-item-code");
+      const item = schema.items.find(x => x.type==="question" && x.code===c);
       if (!item) return;
       node.classList.toggle("hidden", !isVisible(item, answers));
     });
-    // controlar requeridos: solo se valida al guardar
   };
+
+  // Agrupar por secciones: cada item.type === "section" inicia un contenedor colapsable
+  let sectionBody = null;
+  let sectionN = 0;
+
+  const openFirst = () => (sectionN === 1);
+
+  const makeSection = (title) => {
+    sectionN++;
+    const det = document.createElement("details");
+    det.className = "section";
+    det.open = openFirst();
+    const sum = document.createElement("summary");
+    sum.textContent = title;
+    det.appendChild(sum);
+    const body = el("div","sectionBody","");
+    det.appendChild(body);
+    root.appendChild(det);
+    return body;
+  };
+
+  // Si el formulario no define secciones, crear una por defecto
+  sectionBody = makeSection("Formulario");
 
   schema.items.forEach(item => {
     if (item.type === "section"){
-      root.appendChild(el("div","sectionTitle", safeText(item.code) + " - " + safeText(item.text)));
+      const title = safeText(item.code) + " - " + safeText(item.text);
+      sectionBody = makeSection(title);
       return;
     }
+    if (item.type !== "question") return;
+
     const box = el("div","item","");
     box.setAttribute("data-item-code", item.code);
 
@@ -132,6 +200,10 @@ export function renderForm(schema, state){
     left.appendChild(el("div","code", safeText(item.code)));
     left.appendChild(el("div","", `<div class="h2">${safeText(item.text)}</div>`));
     top.appendChild(left);
+
+    const req = el("div","req", (item.required ? "Obligatorio" : ""));
+    top.appendChild(req);
+
     box.appendChild(top);
 
     const input = renderInput(item, answers, onChange);
@@ -140,10 +212,14 @@ export function renderForm(schema, state){
     if (item.help){
       box.appendChild(el("div","help", safeText(item.help)));
     }
+    if (item.note){
+      box.appendChild(el("div","note", safeText(item.note)));
+    }
 
     box.classList.toggle("hidden", !isVisible(item, answers));
-    root.appendChild(box);
+    sectionBody.appendChild(box);
   });
 
   return root;
 }
+

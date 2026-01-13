@@ -47,6 +47,8 @@ function defaultState(){
     user: null,
     visit_id: null,
     school: null, // { CODIGO, NOMBRE, DEPTO, DIST, ... }
+    assigned: [], // escuelas asignadas al usuario
+    assigned_loaded_at: null,
     records: {}   // module_id -> { entity_id -> { answers:{}, photos:[] } }
   };
 }
@@ -57,6 +59,32 @@ function ensureRecord(state, moduleId, entityId){
     state.records[moduleId][entityId] = { answers: {}, photos: [] };
   }
   return state.records[moduleId][entityId];
+}
+
+
+async function ensureAssigned(state){
+  // Carga lista de escuelas asignadas al usuario (cacheada en localStorage)
+  if (state.assigned && state.assigned.length > 0) return;
+  if (!state.token) return;
+  if (!navigator.onLine) return;
+  try{
+    const data = await api.assignedList(state.token, "", 200);
+    state.assigned = (data.results || []).map(x => ({
+      CODIGO: String(x.CODIGO||"").trim(),
+      NOMBRE: String(x.NOMBRE||"").trim(),
+      DEPTO: String(x.DEPTO||"").trim(),
+      DIST: String(x.DIST||"").trim(),
+      ZONA: String(x.ZONA||"").trim(),
+      LOCALIDAD: String(x.LOCALIDAD||"").trim(),
+      ESTRATO: String(x.ESTRATO||"").trim(),
+      GRUPO_MATRICULA: String(x.GRUPO_MATRICULA||"").trim(),
+      MATRICULA: x.MATRICULA
+    })).filter(x => x.CODIGO);
+    state.assigned_loaded_at = Date.now();
+    saveState(state);
+  }catch(e){
+    // si falla, no interrumpir. La selección podrá funcionar con búsqueda online por q.
+  }
 }
 
 function setUserUI(state){
@@ -77,7 +105,7 @@ async function updateQueueUI(){
   qs("#btnSync").disabled = (n === 0);
 }
 
-function toasts(msg){
+function toast(msg){
   // Modal simple para no saturar UI
   openModal("Aviso", `<div class="muted">${safeText(msg)}</div>`, [
     btn("Cerrar","btn btn--light", () => closeModal())
@@ -134,7 +162,7 @@ async function renderLogin(state){
       saveState(state);
       await bootstrap(state);
     }catch(e){
-      toasts(e.message || String(e));
+      toast(e.message || String(e));
     }
   });
   actions.appendChild(b);
@@ -152,94 +180,137 @@ async function renderLogin(state){
 
 async function renderSchoolSelector(state){
   const card = el("div","card","");
-  card.appendChild(el("div","h1","Contexto de visita"));
+  card.appendChild(el("div","h1","Contexto de visita, selección de escuela asignada"));
+
   const kp = el("div","kpi","");
   kp.appendChild(el("div","kpi__pill", "Dispositivo: " + safeText(state.device_id)));
   kp.appendChild(el("div","kpi__pill", "Visita: " + safeText(state.visit_id || "")));
+  if (state.user && state.user.user){
+    kp.appendChild(el("div","kpi__pill", "Usuario: " + safeText(state.user.user)));
+  }
   card.appendChild(kp);
+
+  const info = el("div","muted",
+    "La lista de escuelas se limita a las asignaciones del usuario. " +
+    "Si no aparece su escuela, contacte a la coordinación para actualizar la hoja asigna_escuelas_usuarios."
+  );
+  card.appendChild(info);
 
   const grid = el("div","grid grid--2","");
   const left = el("div","");
-  left.appendChild(el("div","label","Buscar escuela (por CUE o nombre)"));
-  const search = document.createElement("input");
-  search.className="input";
-  search.placeholder="Ej: 1006058 o Espíritu Santo";
-  left.appendChild(search);
+  left.appendChild(el("div","label","Escuela asignada (búsqueda por CUE o nombre)"));
+
+  const inp = document.createElement("input");
+  inp.className="input";
+  inp.placeholder="Escriba para filtrar, luego seleccione una opción";
+  inp.setAttribute("list","dl_assigned");
+  left.appendChild(inp);
+
+  const dl = document.createElement("datalist");
+  dl.id="dl_assigned";
+  left.appendChild(dl);
+
+  const hint = el("div","muted","Sugerencia: utilice el CUE (código) para minimizar ambigüedad.");
+  left.appendChild(hint);
 
   const right = el("div","");
   right.appendChild(el("div","label","Escuela seleccionada"));
-  const selected = el("div","item","");
-  selected.innerHTML = "<div class='muted'>No seleccionada</div>";
-  right.appendChild(selected);
+  const sel = el("div","pill", state.school ? safeText(state.school.CODIGO + " - " + state.school.NOMBRE) : "Ninguna");
+  right.appendChild(sel);
+
+  const meta = el("div","muted","");
+  if (state.school){
+    meta.innerHTML = `
+      <div><span class="tag">DEPTO</span> ${safeText(state.school.DEPTO || "-")}</div>
+      <div><span class="tag">DIST</span> ${safeText(state.school.DIST || "-")}</div>
+      <div><span class="tag">ZONA</span> ${safeText(state.school.ZONA || "-")}</div>
+      <div><span class="tag">LOCALIDAD</span> ${safeText(state.school.LOCALIDAD || "-")}</div>
+      <div class="muted2">Solo se permite registrar y enviar información para la escuela seleccionada.</div>
+    `;
+  } else {
+    meta.textContent = "Seleccione una escuela para habilitar el registro de módulos.";
+  }
+  right.appendChild(meta);
 
   grid.appendChild(left);
   grid.appendChild(right);
   card.appendChild(grid);
 
-  const results = el("div","grid","");
-  card.appendChild(results);
+  const actions = el("div","btnrow","");
 
-  const refreshSelected = () => {
-    if (!state.school){
-      selected.innerHTML = "<div class='muted'>No seleccionada</div>";
-      return;
-    }
-    const s = state.school;
-    selected.innerHTML = `
-      <div class="item__top">
-        <div>
-          <div class="h2">${safeText(s.NOMBRE || "")}</div>
-          <div class="muted">CUE: <span class="code">${safeText(s.CODIGO)}</span></div>
-          <div class="muted">${safeText(s.DEPTO || "")}, ${safeText(s.DIST || "")}, ${safeText(s.ZONA || "")}, ${safeText(s.LOCALIDAD || "")}</div>
-          <div class="muted">Lat/Lng: ${safeText(s.LAT_DEC || "")}, ${safeText(s.LNG_DEC || "")}</div>
-        </div>
-      </div>
-    `;
-  };
-  refreshSelected();
+  const bSelect = btn("Seleccionar escuela","btn", async () => {
+    const raw = String(inp.value || "").trim();
+    if (!raw){ toast("Seleccione una escuela asignada."); return; }
+    const codigo = raw.split(" - ")[0].trim();
+    if (!codigo){ toast("Seleccione una escuela válida."); return; }
 
-  const doSearch = debounce(async () => {
-    const q = search.value.trim();
-    results.innerHTML = "";
-    if (q.length < 3) return;
     try{
-      const data = await api.schoolSearch(state.token, q, CONFIG.MAX_SCHOOL_SUGGESTIONS);
-      const list = data.results || [];
-      if (list.length === 0){
-        results.appendChild(el("div","muted","Sin coincidencias."));
-        return;
-      }
-      list.forEach(s => {
-        const row = el("div","item","");
-        row.innerHTML = `
-          <div class="item__top">
-            <div>
-              <div class="h2">${safeText(s.NOMBRE || "")}</div>
-              <div class="muted">CUE: <span class="code">${safeText(s.CODIGO)}</span>, ${safeText(s.DEPTO || "")}, ${safeText(s.DIST || "")}</div>
-            </div>
-            <div><button class="btn btn--light">Seleccionar</button></div>
-          </div>
-        `;
-        row.querySelector("button").addEventListener("click", () => {
-          state.school = s;
-          // normalizar coordenadas
-          state.school.LAT_DEC = normalizeLatLng(state.school.LAT_DEC);
-          state.school.LNG_DEC = normalizeLatLng(state.school.LNG_DEC);
-          // regenerar visit_id para trazabilidad por escuela
-          state.visit_id = uuid();
-          saveState(state);
-          refreshSelected();
-          toasts("Escuela seleccionada. Se creó un nuevo ID de visita.");
-        });
-        results.appendChild(row);
-      });
+      // school_get valida asignación en backend
+      const data = await api.schoolGet(state.token, codigo);
+      if (!data.school) throw new Error("Escuela no encontrada.");
+      state.school = data.school;
+
+      // regenerar visita para evitar mezcla de escuelas
+      state.visit_id = uuid();
+      saveState(state);
+
+      sel.textContent = safeText(state.school.CODIGO + " - " + state.school.NOMBRE);
+      meta.innerHTML = `
+        <div><span class="tag">DEPTO</span> ${safeText(state.school.DEPTO || "-")}</div>
+        <div><span class="tag">DIST</span> ${safeText(state.school.DIST || "-")}</div>
+        <div><span class="tag">ZONA</span> ${safeText(state.school.ZONA || "-")}</div>
+        <div><span class="tag">LOCALIDAD</span> ${safeText(state.school.LOCALIDAD || "-")}</div>
+        <div class="muted2">Se creó un nuevo ID de visita para trazabilidad.</div>
+      `;
+      toast("Escuela seleccionada, se creó un nuevo ID de visita.");
     }catch(e){
-      results.appendChild(el("div","muted","Error de búsqueda: " + safeText(e.message || e)));
+      toast(e.message || String(e));
     }
-  }, 350);
+  });
+  actions.appendChild(bSelect);
 
-  search.addEventListener("input", doSearch);
+  const bClear = btn("Cambiar escuela","btn btn--light", () => {
+    state.school = null;
+    state.visit_id = uuid();
+    saveState(state);
+    sel.textContent = "Ninguna";
+    meta.textContent = "Seleccione una escuela para habilitar el registro de módulos.";
+    inp.value = "";
+    toast("Contexto reiniciado. Seleccione una escuela asignada.");
+  });
+  actions.appendChild(bClear);
 
+  // cargar datalist desde asignaciones
+  const fillDatalist = () => {
+    dl.innerHTML = "";
+    const arr = Array.isArray(state.assigned) ? state.assigned : [];
+    arr.slice(0, 200).forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = `${s.CODIGO} - ${s.NOMBRE}`;
+      dl.appendChild(opt);
+    });
+    if (arr.length === 0){
+      const opt = document.createElement("option");
+      opt.value = "Sin asignaciones en caché (requiere conexión para cargar)";
+      dl.appendChild(opt);
+    }
+  };
+  fillDatalist();
+
+  // filtro dinámico (cliente) si la lista es grande
+  inp.addEventListener("input", debounce(() => {
+    const q = String(inp.value||"").trim().toLowerCase();
+    const arr = Array.isArray(state.assigned) ? state.assigned : [];
+    dl.innerHTML = "";
+    const filtered = q ? arr.filter(s => (s.CODIGO||"").toLowerCase().includes(q) || (s.NOMBRE||"").toLowerCase().includes(q)).slice(0, 200) : arr.slice(0, 200);
+    filtered.forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = `${s.CODIGO} - ${s.NOMBRE}`;
+      dl.appendChild(opt);
+    });
+  }, 120));
+
+  card.appendChild(actions);
   return card;
 }
 
@@ -309,7 +380,7 @@ function pickEntityUI(schema, state, moduleId, onPick){
   const actions = el("div","btnrow","");
   const bNew = btn("Crear / Abrir","btn btn--light", () => {
     const id = inp.value.trim() || sel.value;
-    if (!id) { toasts("Defina o seleccione un identificador."); return; }
+    if (!id) { toast("Defina o seleccione un identificador."); return; }
     onPick(id);
   });
   actions.appendChild(bNew);
@@ -486,16 +557,16 @@ async function moduleForm(state, schema, moduleId, entityId){
     if (!navigator.onLine){
       await enqueue({ type: "submit", payload });
       await updateQueueUI();
-      toasts("Guardado en cola (offline).");
+      toast("Guardado en cola (offline).");
       return;
     }
     try{
       await api.submit(state.token, payload);
-      toasts("Envío exitoso.");
+      toast("Envío exitoso.");
     }catch(e){
       await enqueue({ type: "submit", payload });
       await updateQueueUI();
-      toasts("No se pudo enviar, quedó en cola.");
+      toast("No se pudo enviar, quedó en cola.");
     }
   });
 
@@ -519,8 +590,8 @@ async function moduleForm(state, schema, moduleId, entityId){
 }
 
 async function syncQueue(state){
-  if (!navigator.onLine){ toasts("Sin conexión. Intente nuevamente cuando esté online."); return; }
-  if (!state.token){ toasts("Sesión no válida."); return; }
+  if (!navigator.onLine){ toast("Sin conexión. Intente nuevamente cuando esté online."); return; }
+  if (!state.token){ toast("Sesión no válida."); return; }
 
   const items = await getAll();
   if (items.length===0){ await updateQueueUI(); return; }
@@ -545,13 +616,15 @@ async function syncQueue(state){
     }
   }
   await updateQueueUI();
-  toasts(`Sincronización finalizada. Enviados: ${ok}, Pendientes: ${fail}.`);
+  toast(`Sincronización finalizada. Enviados: ${ok}, Pendientes: ${fail}.`);
 }
 
 async function bootstrap(state){
   setUserUI(state);
   const root = qs("#appRoot");
   root.innerHTML = "";
+
+  await ensureAssigned(state);
 
   const selector = await renderSchoolSelector(state);
   root.appendChild(selector);
@@ -574,7 +647,7 @@ async function main(){
   saveState(state);
 
   setNetBadge(navigator.onLine);
-  window.addEventListener("online", async () => { setNetBadge(true); await updateQueueUI(); });
+  window.addEventListener("online", async () => { setNetBadge(true); await updateQueueUI(); if (state && state.token){ await syncQueue(state); } });
   window.addEventListener("offline", async () => { setNetBadge(false); await updateQueueUI(); });
 
   qs("#btnLogout").addEventListener("click", () => {

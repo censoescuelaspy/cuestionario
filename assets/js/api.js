@@ -24,7 +24,11 @@ async function post(op, payload){
 export const api = {
   async ping(){ return post("ping", {}); },
   async login(user, pass){ return post("login", { user, pass }); },
+  async assignedList(token, q, limit){
+    return post("assigned_list", { token, q, limit: limit || CONFIG.MAX_SCHOOL_SUGGESTIONS });
+  },
   async schoolSearch(token, q, limit){
+    // Compatibilidad: en backend se restringe a asignación del usuario
     return post("school_search", { token, q, limit: limit || CONFIG.MAX_SCHOOL_SUGGESTIONS });
   },
   async schoolGet(token, codigo){
