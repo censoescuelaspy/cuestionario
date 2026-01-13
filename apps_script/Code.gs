@@ -15,7 +15,7 @@
 const SPREADSHEET_ID = "1uYXF7pxg8jz6sz2uWe75GgtX7I4hJDhqoqtXb83ob44";
 const SHEET_USERS = "usuarios";
 const SHEET_SCHOOLS = "escuelas_muestra";
-const SHEET_ASSIGN = "asigna_escuelas_usuarios";
+const SHEET_ASSIGN = "escuelas_muestra"; // asignación por columna USUARIO en esta misma hoja
 const SHEET_RESP = "respuestas";
 const SHEET_PHOTOS = "fotos";
 const DRIVE_FOLDER_ID = "1MtFgyyCaAF4MyfRmpvFAvwjgzSn75V_-";
@@ -194,9 +194,11 @@ function validateToken_(token){
  * Columnas adicionales recomendadas: DEPTO, DIST, ZONA, LOCALIDAD, ESTRATO, GRUPO_MATRICULA, MATRICULA.
  */
 function assignedList_(user, q, limit){
-  const sh = getSheet_(SHEET_ASSIGN);
+  // Fuente: escuelas_muestra (columna USUARIO), se listan solo las escuelas asignadas al usuario logeado.
+  const sh = getSheet_(SHEET_ASSIGN); // apuntando a escuelas_muestra
   const values = sh.getDataRange().getValues();
   if (values.length < 2) return [];
+
   const headers = values[0].map(h => String(h||"").trim().toUpperCase());
 
   const ix = (names) => {
@@ -218,17 +220,38 @@ function assignedList_(user, q, limit){
   const iEST = ix(["ESTRATO"]);
   const iGRU = ix(["GRUPO_MATRICULA","GRUPO"]);
   const iMAT = ix(["MATRICULA"]);
+  const iLAT = ix(["LAT_DEC","LATITUD","LAT"]);
+  const iLNG = ix(["LNG_DEC","LONG_DEC","LONGITUD","LON","LNG"]);
+  const iAPA = ix(["ALUMNOS_POR_AULA","ALUMNOS_AULA"]);
+  const iAUE = ix(["AULAS_EST","AULAS"]);
 
   if (iUSR < 0 || iCOD < 0 || iNOM < 0) return [];
 
   const u = String(user||"").trim().toLowerCase();
   const qq = String(q||"").trim().toLowerCase();
+  const lim = Math.max(1, Math.min(Number(limit||50), 500));
+
+  const normDec = (v) => {
+    if (v === null || v === undefined) return "";
+    const s = String(v).trim();
+    if (!s) return "";
+    // si viene con coma decimal, normalizar a punto
+    return s.replace(",", ".");
+  };
+
+  const cellHasUser = (cell) => {
+    const raw = String(cell||"").trim().toLowerCase();
+    if (!raw) return false;
+    // permitir múltiples usuarios por separadores comunes, también "*" como comodín
+    const toks = raw.split(/[,;|]+/).map(x => x.trim()).filter(Boolean);
+    return toks.indexOf(u) >= 0 || toks.indexOf("*") >= 0;
+  };
 
   const out = [];
   for (let r = 1; r < values.length; r++){
     const row = values[r];
-    const usr = String(row[iUSR]||"").trim().toLowerCase();
-    if (usr !== u) continue;
+
+    if (!cellHasUser(row[iUSR])) continue;
 
     const cod = String(row[iCOD]||"").trim();
     const nom = String(row[iNOM]||"").trim();
@@ -248,13 +271,16 @@ function assignedList_(user, q, limit){
       LOCALIDAD: iLOC>=0 ? String(row[iLOC]||"").trim() : "",
       ESTRATO: iEST>=0 ? String(row[iEST]||"").trim() : "",
       GRUPO_MATRICULA: iGRU>=0 ? String(row[iGRU]||"").trim() : "",
-      MATRICULA: iMAT>=0 ? row[iMAT] : ""
+      MATRICULA: iMAT>=0 ? row[iMAT] : "",
+      LAT_DEC: iLAT>=0 ? normDec(row[iLAT]) : "",
+      LNG_DEC: iLNG>=0 ? normDec(row[iLNG]) : "",
+      ALUMNOS_POR_AULA: iAPA>=0 ? row[iAPA] : "",
+      AULAS_EST: iAUE>=0 ? row[iAUE] : ""
     });
 
-    if (out.length >= limit) break;
+    if (out.length >= lim) break;
   }
 
-  // orden estable por nombre y código
   out.sort((a,b) => (String(a.NOMBRE).localeCompare(String(b.NOMBRE)) || String(a.CODIGO).localeCompare(String(b.CODIGO))));
   return out;
 }
@@ -275,59 +301,12 @@ function schoolGetForUser_(user, codigo){
   const cod = String(codigo||"").trim();
   if (!cod) return null;
 
-  // Validación estricta por asignación
-  const assigned = assignedList_(user, cod, 5).filter(x => String(x.CODIGO) === cod);
+  // Validación estricta por asignación (columna USUARIO en escuelas_muestra)
+  const assigned = assignedList_(user, cod, 20).filter(x => String(x.CODIGO) === cod);
   if (assigned.length === 0) return null;
-  const a = assigned[0];
 
-  // Buscar en escuelas_muestra para recuperar campos adicionales (si existen)
-  let base = {};
-  try{
-    const sh = getSheet_(SHEET_SCHOOLS);
-    const values = sh.getDataRange().getValues();
-    if (values.length >= 2){
-      const headers = values[0].map(h => String(h||"").trim().toUpperCase());
-      const iCOD = headers.indexOf("CODIGO");
-      if (iCOD >= 0){
-        for (let r = 1; r < values.length; r++){
-          const row = values[r];
-          if (String(row[iCOD]||"").trim() === cod){
-            // extraer campos relevantes si existen
-            const pick = (name) => {
-              const j = headers.indexOf(name);
-              return (j>=0) ? row[j] : "";
-            };
-            base = {
-              CODIGO: cod,
-              NOMBRE: String(pick("NOMBRE")||a.NOMBRE||"").trim(),
-              DEPTO: String(pick("DEPTO")||a.DEPTO||"").trim(),
-              DIST: String(pick("DIST")||a.DIST||"").trim(),
-              ZONA: String(pick("ZONA")||a.ZONA||"").trim(),
-              LOCALIDAD: String(pick("LOCALIDAD")||a.LOCALIDAD||"").trim(),
-              LAT_DEC: pick("LAT_DEC"),
-              LNG_DEC: pick("LNG_DEC"),
-              ALUMNOS_POR_AULA: pick("ALUMNOS_POR_AULA"),
-              AULAS_EST: pick("AULAS_EST")
-            };
-            break;
-          }
-        }
-      }
-    }
-  }catch(err){
-    // si falla la lectura de escuelas_muestra, retornar al menos asignación
-    base = {};
-  }
-
-  // Merge: prioridad a base para georreferencia, a asignación para estratos
-  return Object.assign({}, a, base, {
-    CODIGO: cod,
-    NOMBRE: (base.NOMBRE || a.NOMBRE || ""),
-    DEPTO: (base.DEPTO || a.DEPTO || ""),
-    DIST: (base.DIST || a.DIST || ""),
-    ZONA: (base.ZONA || a.ZONA || ""),
-    LOCALIDAD: (base.LOCALIDAD || a.LOCALIDAD || "")
-  });
+  // Como la asignación y el marco están en la misma hoja, el registro ya incluye los campos relevantes
+  return assigned[0];
 }
 
 // Compatibilidad: schoolSearch_ mantiene firma previa pero restringe a asignación del usuario.
