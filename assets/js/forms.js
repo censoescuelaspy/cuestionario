@@ -192,7 +192,7 @@ export function renderForm(schema, state){
     }
     if (item.type !== "question") return;
 
-    const box = el("div","item","");
+    const box = el("div","item qitem","");
     box.setAttribute("data-item-code", item.code);
 
     const top = el("div","item__top","");

@@ -4,12 +4,13 @@ export function qs(sel, root=document){ return root.querySelector(sel); }
 export function qsa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }
 
 export function setNetBadge(isOnline){
-  const el = qs("#netBadge");
-  if (!el) return;
-  el.textContent = isOnline ? "Online" : "Offline";
-  el.style.borderColor = isOnline ? "rgba(255,255,255,.20)" : "rgba(255,255,255,.20)";
-  el.style.background = isOnline ? "rgba(22,163,74,.20)" : "rgba(220,38,38,.20)";
+  const x = qs("#netBadge");
+  if (!x) return;
+  x.textContent = isOnline ? "Online" : "Offline";
+  x.classList.toggle("badge--online", !!isOnline);
+  x.classList.toggle("badge--offline", !isOnline);
 }
+
 
 export function openModal(title, bodyHtml, actions){
   const modal = qs("#modal");

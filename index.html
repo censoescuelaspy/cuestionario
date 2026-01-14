@@ -1,49 +1,106 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#2f6fed" />
   <title>SIDIE - Relevamiento</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
-  <noscript>Esta aplicación requiere JavaScript habilitado.</noscript>
+<body class="mode-login">
+  <noscript>
+    <div class="noscript">
+      Esta aplicación requiere JavaScript habilitado para funcionar.
+    </div>
+  </noscript>
 
   <header class="topbar">
-    <div class="topbar__left">
-      <div class="brand">
-        <div class="brand__mark">SIDIE</div>
-        <div class="brand__text">
-          <div class="brand__title">Relevamiento de Infraestructura</div>
-          <div class="brand__subtitle" id="appSubtitle">Modo web, con soporte offline</div>
-        </div>
+    <button class="iconbtn" id="btnNav" type="button" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="brand">
+      <div class="brand__mark">SIDIE</div>
+      <div class="brand__meta">
+        <div class="brand__title">Relevamiento</div>
+        <div class="brand__sub">Infraestructura educativa</div>
       </div>
     </div>
-    <div class="topbar__right">
-      <div class="badge" id="netBadge">Offline</div>
-      <button class="btn btn--ghost" id="btnSync" title="Sincronizar pendientes" disabled>Sincronizar</button>
-      <div class="userbox" id="userBox" hidden>
-        <span id="userLabel"></span>
-        <button class="btn btn--ghost" id="btnLogout">Salir</button>
-      </div>
+
+    <div class="topbar__spacer"></div>
+
+    <div class="badge badge--online" id="netBadge">Online</div>
+
+    <div class="userbox" id="userBox">
+      <div class="userbox__label" id="userLabel">Sin sesión</div>
+      <div class="userbox__sub">RUE-MEC</div>
     </div>
+
+    <button class="btn btn--ghost" id="btnSync" type="button">
+      <span class="btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18">
+          <path d="M4 12a8 8 0 0 1 13.657-5.657" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18 4v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 12a8 8 0 0 1-13.657 5.657" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 20v-6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Sincronizar
+    </button>
+
+    <button class="btn btn--danger" id="btnLogout" type="button">
+      <span class="btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18">
+          <path d="M10 17l1 0m-1 0h0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 7h5a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M13 12H4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 9l-3 3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Salir
+    </button>
   </header>
 
-  <main class="container" id="appRoot"></main>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="Navegación">
+      <div class="sidebar__inner" id="sideRoot"></div>
+    </aside>
+
+    <main class="main" aria-label="Contenido principal">
+      <div class="container">
+        <div id="mainContent"></div>
+      </div>
+    </main>
+  </div>
 
   <footer class="footer">
-    <div class="footer__left">DGIE-MEC, SIDIE</div>
+    <div class="footer__left">
+      <span class="muted">SIDIE · Operativo</span>
+    </div>
     <div class="footer__right" id="queueInfo">Pendientes: 0</div>
   </footer>
 
-  <div class="modal" id="modal">
-    <div class="modal__dialog">
-      <div class="modal__title" id="modalTitle"></div>
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__head">
+        <div class="modal__title" id="modalTitle"></div>
+        <button class="iconbtn" type="button" id="modalClose" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
       <div class="modal__body" id="modalBody"></div>
       <div class="modal__actions" id="modalActions"></div>
     </div>
   </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
 
   <script type="module" src="assets/js/app.js"></script>
 </body>

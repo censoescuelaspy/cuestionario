@@ -2,6 +2,16 @@ import { CONFIG } from "./config.js";
 import { api } from "./api.js";
 import { enqueue, getAll, remove, count as qCount } from "./offline_queue.js";
 import { qs, el, btn, openModal, closeModal, setNetBadge, debounce, safeText } from "./ui.js";
+
+function mainRoot(){ return qs("#mainContent") || qs("#appRoot"); }
+function sideRoot(){ return qs("#sideRoot"); }
+function setMode(isLogged){
+  document.body.classList.toggle("mode-login", !isLogged);
+  document.body.classList.toggle("mode-app", !!isLogged);
+}
+function closeNav(){ document.body.classList.remove("nav-open"); }
+
+, debounce, safeText } from "./ui.js";
 import { loadSchema, renderForm } from "./forms.js";
 
 const STORAGE_KEY = "sidie_state_v1";
@@ -105,12 +115,26 @@ async function updateQueueUI(){
   qs("#btnSync").disabled = (n === 0);
 }
 
-function toast(msg){
-  // Modal simple para no saturar UI
-  openModal("Aviso", `<div class="muted">${safeText(msg)}</div>`, [
-    btn("Cerrar","btn btn--light", () => closeModal())
-  ]);
+function toast(msg, kind="info"){
+  const t = qs("#toast");
+  if (!t){
+    openModal("Aviso", `<div class="muted">${safeText(msg)}</div>`, [
+      btn("Cerrar","btn btn--light", () => closeModal())
+    ]);
+    return;
+  }
+  t.textContent = String(msg || "");
+  t.classList.remove("toast--info","toast--ok","toast--warn","toast--err","toast--show");
+  if (kind === "ok") t.classList.add("toast--ok");
+  else if (kind === "warn") t.classList.add("toast--warn");
+  else if (kind === "err") t.classList.add("toast--err");
+  t.classList.add("toast--show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => {
+    t.classList.remove("toast--show","toast--ok","toast--warn","toast--err");
+  }, 2600);
 }
+
 
 function normalizeLatLng(val){
   if (val==null) return null;
@@ -120,226 +144,290 @@ function normalizeLatLng(val){
   return Number.isFinite(n) ? n : null;
 }
 
-async function renderLogin(state){
-  const root = qs("#appRoot");
-  root.innerHTML = "";
+async async function renderLogin(state){
+  setMode(false);
+  const root = mainRoot();
+  if (root) root.innerHTML = "";
+
   const card = el("div","card","");
-  card.appendChild(el("div","h1", "Acceso al sistema"));
+  card.appendChild(el("div","h1","Ingreso al sistema"));
+  card.appendChild(el("div","muted","Autenticación contra la hoja 'usuarios' del libro. La sesión se guarda localmente en este dispositivo."));
 
-  const grid = el("div","grid grid--2","");
-  const u = el("div","");
-  u.appendChild(el("div","label","Usuario"));
-  const inpU = document.createElement("input");
-  inpU.className="input";
-  inpU.autocomplete="username";
-  u.appendChild(inpU);
+  const row = el("div","grid grid--2","");
+  const left = el("div","","");
+  const right = el("div","","");
 
-  const p = el("div","");
-  p.appendChild(el("div","label","Contraseña"));
-  const inpP = document.createElement("input");
-  inpP.className="input";
-  inpP.type="password";
-  inpP.autocomplete="current-password";
-  p.appendChild(inpP);
+  left.appendChild(el("div","label","Usuario"));
+  const u = document.createElement("input");
+  u.className = "input";
+  u.autocomplete = "username";
+  u.placeholder = "usuario";
+  u.value = (loadState() && loadState().user && loadState().user.user) ? loadState().user.user : "";
+  left.appendChild(u);
 
-  grid.appendChild(u);
-  grid.appendChild(p);
-  card.appendChild(grid);
+  right.appendChild(el("div","label","Contraseña"));
+  const p = document.createElement("input");
+  p.className = "input";
+  p.type = "password";
+  p.autocomplete = "current-password";
+  p.placeholder = "********";
+  right.appendChild(p);
 
-  card.appendChild(el("div","muted","Requiere conectividad para validar credenciales. Si ya existe una sesión previa, se intentará reutilizar el token almacenado."));
+  row.appendChild(left);
+  row.appendChild(right);
+  card.appendChild(row);
 
-  const actions = el("div","btnrow","");
+  const showRow = el("div","kpi","");
+  const cb = document.createElement("input");
+  cb.type = "checkbox";
+  cb.id = "showPass";
+  const lb = document.createElement("label");
+  lb.setAttribute("for","showPass");
+  lb.textContent = "Mostrar contraseña";
+  lb.style.cursor = "pointer";
+  lb.style.userSelect = "none";
+  showRow.appendChild(cb);
+  showRow.appendChild(lb);
+  card.appendChild(showRow);
+  cb.addEventListener("change", () => { p.type = cb.checked ? "text" : "password"; });
+
+  const actions = el("div","btnrow sticky","");
   const b = btn("Ingresar","btn", async () => {
     try{
-      const user = inpU.value.trim();
-      const pass = inpP.value;
-      if (!user || !pass) throw new Error("Complete usuario y contraseña.");
-      const data = await api.login(user, pass);
-      state.token = data.token;
-      state.user = data.user;
-      // inicializar contexto de visita si no existe
-      if (!state.visit_id) state.visit_id = uuid();
+      const user = u.value.trim();
+      const pass = p.value;
+      if (!user || !pass){ toast("Complete usuario y contraseña.", "warn"); return; }
+      const r = await api.login(user, pass);
+      state.token = r.token;
+      state.user = r.user;
       saveState(state);
+      toast("Sesión iniciada.", "ok");
       await bootstrap(state);
     }catch(e){
-      toast(e.message || String(e));
+      toast(e.message || "Error de autenticación.", "err");
     }
   });
   actions.appendChild(b);
-
-  if (state.token && state.user){
-    const reuse = btn("Continuar con sesión previa","btn btn--light", async () => {
-      await bootstrap(state);
-    });
-    actions.appendChild(reuse);
-  }
-
   card.appendChild(actions);
-  root.appendChild(card);
+
+  if (root) root.appendChild(card);
 }
 
-async function renderSchoolSelector(state){
+
+async async function renderSchoolSelector(state){
   const card = el("div","card","");
-  card.appendChild(el("div","h1","Contexto de visita, selección de escuela asignada"));
+  card.appendChild(el("div","h1","Escuela asignada"));
+  card.appendChild(el("div","muted","El catálogo está restringido a las escuelas asignadas al usuario (columna USUARIO en la hoja escuelas_muestra)."));
 
   const kp = el("div","kpi","");
   kp.appendChild(el("div","kpi__pill", "Dispositivo: " + safeText(state.device_id)));
-  kp.appendChild(el("div","kpi__pill", "Visita: " + safeText(state.visit_id || "")));
-  if (state.user && state.user.user){
-    kp.appendChild(el("div","kpi__pill", "Usuario: " + safeText(state.user.user)));
-  }
+  if (state.user && state.user.user) kp.appendChild(el("div","kpi__pill", "Usuario: " + safeText(state.user.user)));
   card.appendChild(kp);
 
-  const info = el("div","muted",
-    "La lista de escuelas se limita a las asignaciones del usuario. " +
-    "Si no aparece su escuela, contacte a la coordinación para actualizar la hoja asigna_escuelas_usuarios."
-  );
-  card.appendChild(info);
+  // filtros
+  const filt = el("div","","");
+  filt.appendChild(el("div","label","Filtros (opcional)"));
+  const frow = el("div","grid grid--2","");
+  const sDept = document.createElement("select");
+  const sDist = document.createElement("select");
+  sDept.innerHTML = "<option value=''>Todos los departamentos</option>";
+  sDist.innerHTML = "<option value=''>Todos los distritos</option>";
+  frow.appendChild(sDept);
+  frow.appendChild(sDist);
+  filt.appendChild(frow);
+  card.appendChild(filt);
 
-  const grid = el("div","grid grid--2","");
-  const left = el("div","");
-  left.appendChild(el("div","label","Escuela asignada (búsqueda por CUE o nombre)"));
-
+  // selector principal
+  card.appendChild(el("div","label","Buscar por CUE o nombre (asignados)"));
   const inp = document.createElement("input");
-  inp.className="input";
-  inp.placeholder="Escriba para filtrar, luego seleccione una opción";
-  inp.setAttribute("list","dl_assigned");
-  left.appendChild(inp);
+  inp.className = "input";
+  inp.placeholder = "Ej: 1006058 o ESPÍRITU SANTO";
+  inp.setAttribute("list","schoolsList");
+  card.appendChild(inp);
 
   const dl = document.createElement("datalist");
-  dl.id="dl_assigned";
-  left.appendChild(dl);
+  dl.id = "schoolsList";
+  card.appendChild(dl);
 
-  const hint = el("div","muted","Sugerencia: utilice el CUE (código) para minimizar ambigüedad.");
-  left.appendChild(hint);
+  const meta = el("div","muted2","");
+  card.appendChild(meta);
 
-  const right = el("div","");
-  right.appendChild(el("div","label","Escuela seleccionada"));
-  const sel = el("div","pill", state.school ? safeText(state.school.CODIGO + " - " + state.school.NOMBRE) : "Ninguna");
-  right.appendChild(sel);
+  const uniq = (arr) => Array.from(new Set(arr.filter(x => x != null && String(x).trim() !== "").map(x => String(x).trim()))).sort();
 
-  const meta = el("div","muted","");
-  if (state.school){
-    meta.innerHTML = `
-      <div><span class="tag">DEPTO</span> ${safeText(state.school.DEPTO || "-")}</div>
-      <div><span class="tag">DIST</span> ${safeText(state.school.DIST || "-")}</div>
-      <div><span class="tag">ZONA</span> ${safeText(state.school.ZONA || "-")}</div>
-      <div><span class="tag">LOCALIDAD</span> ${safeText(state.school.LOCALIDAD || "-")}</div>
-      <div class="muted2">Solo se permite registrar y enviar información para la escuela seleccionada.</div>
-    `;
-  } else {
-    meta.textContent = "Seleccione una escuela para habilitar el registro de módulos.";
-  }
-  right.appendChild(meta);
-
-  grid.appendChild(left);
-  grid.appendChild(right);
-  card.appendChild(grid);
-
-  const actions = el("div","btnrow","");
-
-  const bSelect = btn("Seleccionar escuela","btn", async () => {
-    const raw = String(inp.value || "").trim();
-    if (!raw){ toast("Seleccione una escuela asignada."); return; }
-    const codigo = raw.split(" - ")[0].trim();
-    if (!codigo){ toast("Seleccione una escuela válida."); return; }
-
-    try{
-      // school_get valida asignación en backend
-      const data = await api.schoolGet(state.token, codigo);
-      if (!data.school) throw new Error("Escuela no encontrada.");
-      state.school = data.school;
-
-      // regenerar visita para evitar mezcla de escuelas
-      state.visit_id = uuid();
-      saveState(state);
-
-      sel.textContent = safeText(state.school.CODIGO + " - " + state.school.NOMBRE);
-      meta.innerHTML = `
-        <div><span class="tag">DEPTO</span> ${safeText(state.school.DEPTO || "-")}</div>
-        <div><span class="tag">DIST</span> ${safeText(state.school.DIST || "-")}</div>
-        <div><span class="tag">ZONA</span> ${safeText(state.school.ZONA || "-")}</div>
-        <div><span class="tag">LOCALIDAD</span> ${safeText(state.school.LOCALIDAD || "-")}</div>
-        <div class="muted2">Se creó un nuevo ID de visita para trazabilidad.</div>
-      `;
-      toast("Escuela seleccionada, se creó un nuevo ID de visita.");
-    }catch(e){
-      toast(e.message || String(e));
-    }
+  const all = Array.isArray(state.assigned) ? state.assigned : [];
+  const depts = uniq(all.map(x => x.DEPTO));
+  depts.forEach(d => {
+    const o = document.createElement("option");
+    o.value = d;
+    o.textContent = d;
+    sDept.appendChild(o);
   });
-  actions.appendChild(bSelect);
 
-  const bClear = btn("Cambiar escuela","btn btn--light", () => {
-    state.school = null;
-    state.visit_id = uuid();
-    saveState(state);
-    sel.textContent = "Ninguna";
-    meta.textContent = "Seleccione una escuela para habilitar el registro de módulos.";
-    inp.value = "";
-    toast("Contexto reiniciado. Seleccione una escuela asignada.");
-  });
-  actions.appendChild(bClear);
-
-  // cargar datalist desde asignaciones
-  const fillDatalist = () => {
-    dl.innerHTML = "";
-    const arr = Array.isArray(state.assigned) ? state.assigned : [];
-    arr.slice(0, 200).forEach(s => {
-      const opt = document.createElement("option");
-      opt.value = `${s.CODIGO} - ${s.NOMBRE}`;
-      dl.appendChild(opt);
+  const refreshDist = () => {
+    const dsel = sDept.value || "";
+    const ds = uniq(all.filter(x => !dsel || String(x.DEPTO||"").trim() === dsel).map(x => x.DIST));
+    sDist.innerHTML = "<option value=''>Todos los distritos</option>";
+    ds.forEach(d => {
+      const o = document.createElement("option");
+      o.value = d;
+      o.textContent = d;
+      sDist.appendChild(o);
     });
-    if (arr.length === 0){
-      const opt = document.createElement("option");
-      opt.value = "Sin asignaciones en caché (requiere conexión para cargar)";
-      dl.appendChild(opt);
-    }
   };
-  fillDatalist();
 
-  // filtro dinámico (cliente) si la lista es grande
-  inp.addEventListener("input", debounce(() => {
-    const q = String(inp.value||"").trim().toLowerCase();
-    const arr = Array.isArray(state.assigned) ? state.assigned : [];
+  const filtered = () => {
+    const dsel = sDept.value || "";
+    const disel = sDist.value || "";
+    return all.filter(x => (!dsel || String(x.DEPTO||"").trim() === dsel) && (!disel || String(x.DIST||"").trim() === disel));
+  };
+
+  const refreshList = () => {
     dl.innerHTML = "";
-    const filtered = q ? arr.filter(s => (s.CODIGO||"").toLowerCase().includes(q) || (s.NOMBRE||"").toLowerCase().includes(q)).slice(0, 200) : arr.slice(0, 200);
-    filtered.forEach(s => {
+    const rows = filtered();
+    rows.forEach(r => {
       const opt = document.createElement("option");
-      opt.value = `${s.CODIGO} - ${s.NOMBRE}`;
+      const cue = String(r.CODIGO || "").trim();
+      const nom = String(r.NOMBRE || "").trim();
+      opt.value = (cue ? cue + " - " : "") + nom;
       dl.appendChild(opt);
     });
-  }, 120));
+  };
 
-  card.appendChild(actions);
-  return card;
-}
-
-async function renderModuleList(state, onOpen){
-  const card = el("div","card","");
-  card.appendChild(el("div","h1","Módulos del relevamiento"));
-  card.appendChild(el("div","muted","Complete y guarde cada módulo. Para módulos repetibles (bloques, aulas, etc.), registre un identificador por unidad."));
-
-  const list = el("div","grid","");
-  MODULES.forEach(m => {
-    const row = el("div","item","");
-    const savedCount = state.records[m.id] ? Object.keys(state.records[m.id]).length : 0;
-    row.innerHTML = `
-      <div class="item__top">
-        <div>
-          <div class="h2">${safeText(m.label)}</div>
-          <div class="muted">Registros en este dispositivo: ${savedCount}</div>
-        </div>
-        <div class="btnrow">
-          <button class="btn btn--light">Abrir</button>
-        </div>
-      </div>
+  const setSchoolMeta = () => {
+    if (!state.school){
+      meta.textContent = "Seleccione una escuela para habilitar el registro de módulos.";
+      return;
+    }
+    const s = state.school;
+    const maps = (s.LAT_DEC && s.LNG_DEC)
+      ? `<a target="_blank" rel="noreferrer" href="https://www.google.com/maps?q=${encodeURIComponent(String(s.LAT_DEC)+","+String(s.LNG_DEC))}">Abrir en Maps</a>`
+      : "";
+    meta.innerHTML = `
+      <div><span class="tag">CUE</span> ${safeText(s.CODIGO || "-")}</div>
+      <div><span class="tag">NOMBRE</span> ${safeText(s.NOMBRE || "-")}</div>
+      <div><span class="tag">DEPTO</span> ${safeText(s.DEPTO || "-")}</div>
+      <div><span class="tag">DIST</span> ${safeText(s.DIST || "-")}</div>
+      <div><span class="tag">ZONA</span> ${safeText(s.ZONA || "-")}</div>
+      <div><span class="tag">LOCALIDAD</span> ${safeText(s.LOCALIDAD || "-")}</div>
+      <div class="muted2" style="margin-top:8px">${maps}</div>
     `;
-    row.querySelector("button").addEventListener("click", () => onOpen(m.id));
-    list.appendChild(row);
+  };
+
+  sDept.addEventListener("change", () => {
+    refreshDist();
+    refreshList();
+    inp.value = "";
   });
-  card.appendChild(list);
+  sDist.addEventListener("change", () => {
+    refreshList();
+    inp.value = "";
+  });
+
+  inp.addEventListener("change", async () => {
+    const raw = inp.value || "";
+    const cue = raw.split(" - ")[0].trim();
+    const byCue = filtered().find(x => String(x.CODIGO || "").trim() === cue);
+    const pick = byCue || filtered().find(x => String(x.NOMBRE || "").trim().toLowerCase() === raw.trim().toLowerCase());
+    if (!pick){
+      toast("No se encontró una escuela asignada con ese criterio.", "warn");
+      return;
+    }
+    // Traer versión completa por API (mantiene compatibilidad)
+    try{
+      const r = await api.schoolGet(state.token, String(pick.CODIGO || "").trim());
+      state.school = r.school || pick;
+      if (!state.visit_id) state.visit_id = uuid();
+      saveState(state);
+      toast("Escuela seleccionada.", "ok");
+      setSchoolMeta();
+    }catch(e){
+      state.school = pick;
+      if (!state.visit_id) state.visit_id = uuid();
+      saveState(state);
+      toast("Escuela seleccionada (modo local).", "warn");
+      setSchoolMeta();
+    }
+  });
+
+  refreshDist();
+  refreshList();
+  setSchoolMeta();
+
   return card;
 }
+
+
+async async function renderModuleList(state, onOpen){
+  const card = el("div","card","");
+  card.appendChild(el("div","h1","Módulos de relevamiento"));
+  card.appendChild(el("div","muted","Abra un módulo para registrar información. Para módulos por unidad, use identificadores operativos consistentes (por ejemplo BLOQUE_A, AULA_01)."));
+
+  const searchWrap = el("div","navsearch","");
+  const s = document.createElement("input");
+  s.className = "input";
+  s.placeholder = "Buscar módulo...";
+  searchWrap.appendChild(s);
+  card.appendChild(searchWrap);
+
+  const list = el("div","navlist","");
+
+  const icon = (id) => {
+    const map = {
+      general: "🏫",
+      servicios: "💧",
+      exteriores: "🌳",
+      bloques_niveles: "🧱",
+      areas_recreacion: "🏟️",
+      aulas: "📚",
+      dependencias: "🚪",
+      laboratorios: "🧪",
+      talleres: "🛠️",
+      sanitarios: "🚻"
+    };
+    return map[id] || "📄";
+  };
+
+  const makeItem = (m) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "navitem";
+    b.setAttribute("data-module-id", m.id);
+
+    const n = (state.records && state.records[m.id]) ? Object.keys(state.records[m.id]).length : 0;
+
+    b.innerHTML = `
+      <div class="navitem__icon" aria-hidden="true">${icon(m.id)}</div>
+      <div class="navitem__main">
+        <div class="navitem__title">${safeText(m.label)}</div>
+        <div class="navitem__meta">Registros locales: ${n}</div>
+      </div>
+      <div class="navitem__pill">${n > 0 ? "En curso" : "Nuevo"}</div>
+    `;
+
+    b.addEventListener("click", () => {
+      closeNav();
+      onOpen(m.id);
+      // marcar activo
+      list.querySelectorAll(".navitem").forEach(x => x.classList.remove("is-active"));
+      b.classList.add("is-active");
+    });
+    return b;
+  };
+
+  MODULES.forEach(m => list.appendChild(makeItem(m)));
+  card.appendChild(list);
+
+  s.addEventListener("input", () => {
+    const q = s.value.trim().toLowerCase();
+    list.querySelectorAll(".navitem").forEach(btn => {
+      const txt = btn.textContent.toLowerCase();
+      btn.style.display = (!q || txt.includes(q)) ? "" : "none";
+    });
+  });
+
+  return card;
+}
+
 
 function pickEntityUI(schema, state, moduleId, onPick){
   const entityType = schema.entity_type || "LOCAL";
@@ -377,7 +465,7 @@ function pickEntityUI(schema, state, moduleId, onPick){
   row.appendChild(right);
   wrap.appendChild(row);
 
-  const actions = el("div","btnrow","");
+  const actions = el("div","btnrow sticky","");
   const bNew = btn("Crear / Abrir","btn btn--light", () => {
     const id = inp.value.trim() || sel.value;
     if (!id) { toast("Defina o seleccione un identificador."); return; }
@@ -389,36 +477,42 @@ function pickEntityUI(schema, state, moduleId, onPick){
   return { entityId: null, node: wrap };
 }
 
-async function moduleScreen(state, moduleId){
-  const root = qs("#appRoot");
-  root.innerHTML = "";
+async async function moduleScreen(state, moduleId){
+  closeNav();
+  const root = mainRoot();
+  if (root) root.innerHTML = "";
+
   const schema = await loadSchema(moduleId);
 
-  const back = btn("Volver","btn btn--light", () => bootstrap(state));
-  root.appendChild(el("div","card",""));
-  root.firstChild.appendChild(el("div","h1", safeText(schema.title || moduleId)));
-  root.firstChild.appendChild(el("div","muted","Código de visita: " + safeText(state.visit_id || "") + ", Escuela: " + safeText(state.school ? state.school.NOMBRE : "(sin seleccionar)")));
-  root.firstChild.appendChild(el("div","btnrow",""));
-  root.firstChild.querySelector(".btnrow").appendChild(back);
+  const head = el("div","card","");
+  head.appendChild(el("div","h1", safeText(schema.title || moduleId)));
+  head.appendChild(el("div","muted","Escuela: " + safeText(state.school ? state.school.NOMBRE : "(sin seleccionar)") + " (CUE: " + safeText(state.school ? state.school.CODIGO : "-") + ")"));
+  const bRow = el("div","btnrow","");
+  bRow.appendChild(btn("Volver al panel","btn btn--light", () => bootstrap(state)));
+  head.appendChild(bRow);
+
+  if (root) root.appendChild(head);
 
   if (!state.school){
     const warn = el("div","card","");
     warn.appendChild(el("div","h1","Seleccione una escuela"));
-    warn.appendChild(el("div","muted","Antes de capturar módulos, seleccione una escuela del catálogo."));
+    warn.appendChild(el("div","muted","Antes de capturar módulos, seleccione una escuela del catálogo asignado."));
     warn.appendChild(btn("Ir a selección","btn", () => bootstrap(state)));
-    root.appendChild(warn);
+    if (root) root.appendChild(warn);
     return;
   }
 
   const entityPicker = pickEntityUI(schema, state, moduleId, async (entityId) => {
     await moduleForm(state, schema, moduleId, entityId);
   });
+
   if (schema.entity_type !== "LOCAL"){
-    root.appendChild(entityPicker.node);
+    if (root) root.appendChild(entityPicker.node);
   } else {
     await moduleForm(state, schema, moduleId, "LOCAL");
   }
 }
+
 
 async function moduleForm(state, schema, moduleId, entityId){
   const root = qs("#appRoot");
@@ -523,7 +617,7 @@ async function moduleForm(state, schema, moduleId, entityId){
     inp.value="";
   });
 
-  const actions = el("div","btnrow","");
+  const actions = el("div","btnrow sticky","");
   const bSave = btn("Guardar módulo","btn", async () => {
     // guardar respuestas visibles
     const answers = formState.answers || {};
@@ -619,23 +713,90 @@ async function syncQueue(state){
   toast(`Sincronización finalizada. Enviados: ${ok}, Pendientes: ${fail}.`);
 }
 
+async 
+function renderHome(state){
+  const card = el("div","card","");
+  card.appendChild(el("div","h1","Panel operativo"));
+  const msg = el("div","muted",
+    "Seleccione una escuela asignada en el panel lateral y luego abra los módulos. " +
+    "Guarde localmente en cada módulo. Si está sin conexión, los envíos quedarán en cola y podrá sincronizar más tarde."
+  );
+  card.appendChild(msg);
+
+  const kp = el("div","kpi","");
+  kp.appendChild(el("div","kpi__pill", "Dispositivo: " + safeText(state.device_id)));
+  kp.appendChild(el("div","kpi__pill", "Pendientes: " + String((loadQueueCount && loadQueueCount()) || 0)));
+  if (state.user && state.user.user){
+    kp.appendChild(el("div","kpi__pill", "Usuario: " + safeText(state.user.user)));
+  }
+  card.appendChild(kp);
+
+  const school = el("div","card","");
+  school.appendChild(el("div","h1","Escuela activa"));
+  const body = el("div","muted2","");
+  if (state.school){
+    const maps = (state.school.LAT_DEC && state.school.LNG_DEC)
+      ? `<a target="_blank" rel="noreferrer" href="https://www.google.com/maps?q=${encodeURIComponent(String(state.school.LAT_DEC)+","+String(state.school.LNG_DEC))}">Abrir en Maps</a>`
+      : "";
+    body.innerHTML = `
+      <div><span class="tag">CUE</span> ${safeText(state.school.CODIGO || "-")}</div>
+      <div><span class="tag">NOMBRE</span> ${safeText(state.school.NOMBRE || "-")}</div>
+      <div><span class="tag">DEPTO</span> ${safeText(state.school.DEPTO || "-")}</div>
+      <div><span class="tag">DIST</span> ${safeText(state.school.DIST || "-")}</div>
+      <div class="muted2" style="margin-top:8px">${maps}</div>
+    `;
+  } else {
+    body.textContent = "Aún no se seleccionó escuela.";
+  }
+  school.appendChild(body);
+
+  const wrap = el("div","grid grid--2","");
+  // Si grid no existe en CSS, mantiene legible por block
+  wrap.appendChild(card);
+  wrap.appendChild(school);
+
+  const out = el("div","","");
+  out.appendChild(wrap);
+  return out;
+}
 async function bootstrap(state){
   setUserUI(state);
-  const root = qs("#appRoot");
-  root.innerHTML = "";
+  setMode(true);
+
+  const main = mainRoot();
+  if (main) main.innerHTML = "";
+
+  const side = sideRoot();
+  if (side) side.innerHTML = "";
 
   await ensureAssigned(state);
 
   const selector = await renderSchoolSelector(state);
-  root.appendChild(selector);
-
   const moduleList = await renderModuleList(state, (moduleId) => moduleScreen(state, moduleId));
-  root.appendChild(moduleList);
+
+  if (side){
+    side.appendChild(selector);
+    side.appendChild(moduleList);
+  } else if (main){
+    // fallback legacy layout
+    main.appendChild(selector);
+    main.appendChild(moduleList);
+  }
+
+  if (main){
+    main.appendChild(renderHome(state));
+  }
 
   await updateQueueUI();
 }
 
+
 async function main(){
+  const navBtn = qs("#btnNav");
+  const scrim = qs("#scrim");
+  if (navBtn){ navBtn.addEventListener("click", () => document.body.classList.toggle("nav-open")); }
+  if (scrim){ scrim.addEventListener("click", () => closeNav()); }
+
   // Service worker
   if ("serviceWorker" in navigator){
     try{ await navigator.serviceWorker.register("./sw.js"); }catch(e){}
@@ -647,7 +808,7 @@ async function main(){
   saveState(state);
 
   setNetBadge(navigator.onLine);
-  window.addEventListener("online", async () => { setNetBadge(true); await updateQueueUI(); if (state && state.token){ await syncQueue(state); } });
+  window.addEventListener("online", async () => { setNetBadge(true); toast("Conexión restablecida, intentando sincronizar cola.", "ok"); await updateQueueUI(); if (state && state.token){ await syncQueue(state); } });
   window.addEventListener("offline", async () => { setNetBadge(false); await updateQueueUI(); });
 
   qs("#btnLogout").addEventListener("click", () => {
