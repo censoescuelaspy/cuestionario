@@ -143,7 +143,7 @@ function normalizeLatLng(val){
   return Number.isFinite(n) ? n : null;
 }
 
-async async function renderLogin(state){
+async function renderLogin(state){
   setMode(false);
   const root = mainRoot();
   if (root) root.innerHTML = "";
@@ -213,7 +213,7 @@ async async function renderLogin(state){
 }
 
 
-async async function renderSchoolSelector(state){
+async function renderSchoolSelector(state){
   const card = el("div","card","");
   card.appendChild(el("div","h1","Escuela asignada"));
   card.appendChild(el("div","muted","El catálogo está restringido a las escuelas asignadas al usuario (columna USUARIO en la hoja escuelas_muestra)."));
@@ -356,7 +356,7 @@ async async function renderSchoolSelector(state){
 }
 
 
-async async function renderModuleList(state, onOpen){
+async function renderModuleList(state, onOpen){
   const card = el("div","card","");
   card.appendChild(el("div","h1","Módulos de relevamiento"));
   card.appendChild(el("div","muted","Abra un módulo para registrar información. Para módulos por unidad, use identificadores operativos consistentes (por ejemplo BLOQUE_A, AULA_01)."));
@@ -476,7 +476,7 @@ function pickEntityUI(schema, state, moduleId, onPick){
   return { entityId: null, node: wrap };
 }
 
-async async function moduleScreen(state, moduleId){
+async function moduleScreen(state, moduleId){
   closeNav();
   const root = mainRoot();
   if (root) root.innerHTML = "";
