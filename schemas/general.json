@@ -23,7 +23,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_1",
       "help": ""
     },
@@ -45,7 +45,7 @@
       "options": [],
       "qtype": "text",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_1",
       "help": ""
     },
@@ -56,7 +56,7 @@
       "options": [],
       "qtype": "text",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_2",
       "help": ""
     },
@@ -67,7 +67,7 @@
       "options": [],
       "qtype": "text",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3",
       "help": ""
     },
@@ -78,7 +78,7 @@
       "options": [],
       "qtype": "text",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_4",
       "help": ""
     },
@@ -89,7 +89,7 @@
       "options": [],
       "qtype": "text",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_5",
       "help": ""
     },
@@ -105,7 +105,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_6",
       "help": ""
     },
@@ -130,7 +130,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3",
       "help": ""
     },
@@ -145,7 +145,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_2",
       "help": ""
     },
@@ -159,7 +159,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3",
       "help": ""
     },
@@ -175,7 +175,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_4",
       "help": ""
     },
@@ -190,7 +190,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_5",
       "help": ""
     },
@@ -209,7 +209,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_6",
       "help": ""
     },
@@ -223,7 +223,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_7",
       "help": ""
     },
@@ -244,7 +244,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_8",
       "help": ""
     },
@@ -259,7 +259,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_9",
       "help": ""
     },
@@ -280,7 +280,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_10",
       "help": ""
     },
@@ -295,7 +295,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_3_11",
       "help": ""
     },
@@ -374,7 +374,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "general_4_1",
       "help": ""
     }

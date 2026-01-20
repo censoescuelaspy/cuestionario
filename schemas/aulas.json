@@ -36,7 +36,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_2_1",
       "help": "Especifica motivos:___________________"
     },
@@ -66,7 +66,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_3_1",
       "help": "Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.2, 3.3 y 3.11 Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.9, 3.10 y 3.11 Nota: Si marco ésta opción PASAR A LA PREGUNTA 3.4. al 3.8 y 3.11 Nota: Si marcó ésta opción PASAR A LA PREGUNTA 3.9. al 3.11 Nota: Si marcó ésta opción PASAR A PARED."
     },
@@ -89,7 +89,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_2",
       "help": "Espeficar m2 afectados"
     },
@@ -112,7 +112,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_3",
       "help": "Espeficar m2 afectados"
     },
@@ -137,7 +137,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_4",
       "help": "Especifícar defecto en (Marque): Especifícar cantidad de tirantes afectados"
     },
@@ -160,7 +160,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_5",
       "help": "Espeficar m2 afectados"
     },
@@ -183,7 +183,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_6",
       "help": "Espeficar m2 afectados"
     },
@@ -207,7 +207,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_7",
       "help": ""
     },
@@ -230,7 +230,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_8",
       "help": "Espeficar m2 afectados"
     },
@@ -255,7 +255,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_9",
       "help": "Espeficar m2 afectados"
     },
@@ -280,7 +280,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_10",
       "help": "Espeficar m2 afectados"
     },
@@ -307,7 +307,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_3_11",
       "help": "Espeficar m2 afectados"
     },
@@ -332,7 +332,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_4_1",
       "help": "Nota: Si marcó esta opción PASAR A LA PREG. 4.7 Nota: Si marcó esta opción PASAR A PISO."
     },
@@ -354,7 +354,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_4_2",
       "help": "Espeficar m2 afectados"
     },
@@ -376,7 +376,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_4_3",
       "help": ""
     },
@@ -398,7 +398,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_4_4",
       "help": "Espeficar m2 afectados"
     },
@@ -420,7 +420,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_4_5",
       "help": "Espeficar m2 afectados"
     },
@@ -442,7 +442,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "aulas_4_6",
       "help": "Espeficar m2 afectados"
     },
@@ -456,7 +456,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_4_7",
       "help": "Espeficar m2 afectados"
     },
@@ -483,7 +483,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_5_1",
       "help": ""
     },
@@ -501,7 +501,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_5_2",
       "help": "Espeficar m2 afectados"
     },
@@ -548,7 +548,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_1",
       "help": ""
     },
@@ -564,7 +564,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_2",
       "help": ""
     },
@@ -580,7 +580,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_3",
       "help": ""
     },
@@ -601,7 +601,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_4",
       "help": ""
     },
@@ -615,7 +615,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_5",
       "help": ""
     },
@@ -632,7 +632,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_6",
       "help": "Especificar cantidad dañada"
     },
@@ -653,7 +653,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_7",
       "help": ""
     },
@@ -670,7 +670,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_6_8",
       "help": ""
     },
@@ -695,7 +695,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_7_1",
       "help": ""
     },
@@ -709,7 +709,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_7_2",
       "help": "Especificar el aula"
     },
@@ -734,7 +734,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "aulas_9_1",
       "help": ""
     },

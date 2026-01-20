@@ -1,7 +1,7 @@
 /* Service Worker básico para cache de recursos estáticos (soporte offline).
    Nota: este SW no cachea respuestas dinámicas de Apps Script.
 */
-const CACHE_NAME = "sidie-cache-v1";
+const CACHE_NAME = "sidie-cache-v5";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -12,7 +12,17 @@ const CORE_ASSETS = [
   "./assets/js/api.js",
   "./assets/js/offline_queue.js",
   "./assets/js/ui.js",
-  "./assets/js/forms.js"
+  "./assets/js/forms.js",
+  "./schemas/areas_recreacion.json",
+  "./schemas/aulas.json",
+  "./schemas/bloques_niveles.json",
+  "./schemas/dependencias.json",
+  "./schemas/exteriores.json",
+  "./schemas/general.json",
+  "./schemas/laboratorios.json",
+  "./schemas/sanitarios.json",
+  "./schemas/servicios.json",
+  "./schemas/talleres.json",
 ];
 
 self.addEventListener("install", (event) => {

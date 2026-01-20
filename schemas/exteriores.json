@@ -24,7 +24,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "exteriores_1_1",
       "help": ""
     },
@@ -42,7 +42,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "exteriores_1_2",
       "help": ""
     },
@@ -56,7 +56,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "exteriores_1_3",
       "help": ""
     },
@@ -70,7 +70,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "exteriores_1_4",
       "help": ""
     },
@@ -85,7 +85,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "exteriores_1_5",
       "help": ""
     }

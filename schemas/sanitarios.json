@@ -37,7 +37,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_2_1",
       "help": ""
     },
@@ -51,7 +51,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_2_2",
       "help": ""
     },
@@ -76,7 +76,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_3_1",
       "help": ""
     },
@@ -89,7 +89,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_3_2",
       "help": ""
     },
@@ -104,7 +104,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_3_4",
       "help": ""
     },
@@ -137,7 +137,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_4_1",
       "help": ""
     },
@@ -153,7 +153,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_4_3",
       "help": ""
     },
@@ -182,7 +182,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_1",
       "help": "Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 5.2; 5.3 y 5.11 Nota: Si marco ésta opción PASAR A LA PREGUNTA 5.4. al 5.8 y 5.11 Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 5.9, 5.10 y 5.11 Nota: Si marcó ésta opción PASAR A LA PREGUNTA 5.9. al 5.11 Nota: Si marcó ésta opción PASAR A PARED."
     },
@@ -204,7 +204,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_2",
       "help": "Espeficar m2 afectados"
     },
@@ -226,7 +226,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_3",
       "help": "Espeficar m2 afectados"
     },
@@ -250,7 +250,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_4",
       "help": "Especifícar defecto en (Marque): Especifícar cantidad de tirantes afectados"
     },
@@ -272,7 +272,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_5",
       "help": "Espeficar m2 afectados"
     },
@@ -294,7 +294,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_6",
       "help": "Espeficar m2 afectados"
     },
@@ -317,7 +317,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_7",
       "help": ""
     },
@@ -339,7 +339,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_8",
       "help": "Espeficar m2 afectados"
     },
@@ -363,7 +363,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_9",
       "help": "Espeficar m2 afectados"
     },
@@ -387,7 +387,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_10",
       "help": "Espeficar m2 afectados"
     },
@@ -413,7 +413,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_5_11",
       "help": "Espeficar m2 afectados"
     },
@@ -438,7 +438,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_6_1",
       "help": "Nota: Si marcó esta opción PASAR A LA PREG. 6.2 al 6.6 Nota: Si marcó esta opción PASAR A LA PREG. 6.7 Nota: Si marcó esta opción PASAR A PISO."
     },
@@ -460,7 +460,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_6_2",
       "help": "Espeficar m2 afectados"
     },
@@ -482,7 +482,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_6_3",
       "help": ""
     },
@@ -504,7 +504,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_6_4",
       "help": "Espeficar m2 afectados"
     },
@@ -526,7 +526,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_6_5",
       "help": "Espeficar m2 afectados"
     },
@@ -548,7 +548,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_6_6",
       "help": "Espeficar m2 afectados"
     },
@@ -570,7 +570,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "sanitarios_6_7",
       "help": "Espeficar m2 afectados"
     },
@@ -597,7 +597,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_7_1",
       "help": "Nota: Si marcó esta opción PASAR A INSTALACIÓN ELECTRICA"
     },
@@ -615,7 +615,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_7_2",
       "help": "Espeficar m2 afectados"
     },
@@ -634,7 +634,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_7_3",
       "help": "Espeficar m2 afectados"
     },
@@ -659,7 +659,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_8_1",
       "help": ""
     },
@@ -674,7 +674,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_8_2",
       "help": ""
     },
@@ -690,7 +690,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_8_3",
       "help": ""
     },
@@ -707,7 +707,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_8_4",
       "help": "Especificar cantidad dañada"
     },
@@ -724,7 +724,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_8_5",
       "help": ""
     },
@@ -749,7 +749,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "sanitarios_9_1",
       "help": ""
     },

@@ -24,7 +24,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "servicios_1_1",
       "help": "Nota: Si marcó la opción \"NO\" ,PASAR A 2. SERVICIO SANITARIO"
     },
@@ -57,7 +57,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "servicios_1_2",
       "help": ""
     },
@@ -82,7 +82,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "servicios_2_1",
       "help": ""
     },
@@ -102,7 +102,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "servicios_2_2",
       "help": ""
     },
@@ -129,7 +129,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "servicios_3_1",
       "help": ""
     },
@@ -156,7 +156,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "servicios_4_1",
       "help": ""
     },
@@ -172,7 +172,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "servicios_4_2",
       "help": ""
     }

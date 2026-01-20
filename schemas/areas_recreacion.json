@@ -1,7 +1,346 @@
 {
   "module_id": "areas_recreacion",
-  "title": "Áreas de recreación sin techo",
+  "title": "Área de recreación",
   "entity_type": "AREA_RECREACION",
-  "items": [],
-  "photo_required": true
+  "photo_required": true,
+  "items": [
+    {
+      "id": "ar_sec_1",
+      "type": "section",
+      "code": "AR",
+      "text": "Identificación del área",
+      "qtype": null,
+      "options": [],
+      "show_if": [],
+      "required": false,
+      "help": ""
+    },
+    {
+      "id": "ar_01",
+      "type": "question",
+      "code": "AR_01",
+      "text": "Nombre del área de recreación (especificar)",
+      "qtype": "text",
+      "options": [],
+      "show_if": [],
+      "required": true,
+      "help": "Registrar el nombre con el que se identifica el área dentro del local (por ejemplo: Patio principal, Cancha, Parque infantil)."
+    },
+    {
+      "id": "ar_sec_2",
+      "type": "section",
+      "code": "AR_DIM",
+      "text": "Dimensiones",
+      "qtype": null,
+      "options": [],
+      "show_if": [],
+      "required": false,
+      "help": ""
+    },
+    {
+      "id": "ar_02",
+      "type": "question",
+      "code": "AR_02",
+      "text": "Largo (m)",
+      "qtype": "number",
+      "options": [],
+      "show_if": [],
+      "required": true,
+      "help": "Medición en metros. Si no es posible medir, estimar e indicar en Observaciones del módulo correspondiente."
+    },
+    {
+      "id": "ar_03",
+      "type": "question",
+      "code": "AR_03",
+      "text": "Ancho (m)",
+      "qtype": "number",
+      "options": [],
+      "show_if": [],
+      "required": true,
+      "help": "Medición en metros."
+    },
+    {
+      "id": "ar_sec_3",
+      "type": "section",
+      "code": "AR_LUZ",
+      "text": "Iluminación",
+      "qtype": null,
+      "options": [],
+      "show_if": [],
+      "required": false,
+      "help": ""
+    },
+    {
+      "id": "ar_04",
+      "type": "question",
+      "code": "AR_04",
+      "text": "Cuenta con iluminación",
+      "qtype": "yesno",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "show_if": [],
+      "required": true,
+      "help": "Consignar según observación directa (luminarias instaladas)."
+    },
+    {
+      "id": "ar_05",
+      "type": "question",
+      "code": "AR_05",
+      "text": "Si cuenta con iluminación, funciona",
+      "qtype": "yesno",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "show_if": [
+        {
+          "q": "AR_04",
+          "op": "eq",
+          "value": "Sí"
+        }
+      ],
+      "required": true,
+      "help": "Prueba funcional, si es posible. En caso de imposibilidad, consignar según evidencia observada."
+    },
+    {
+      "id": "ar_sec_4",
+      "type": "section",
+      "code": "AR_TECHO",
+      "text": "Techo",
+      "qtype": null,
+      "options": [],
+      "show_if": [],
+      "required": false,
+      "help": ""
+    },
+    {
+      "id": "ar_06",
+      "type": "question",
+      "code": "AR_06",
+      "text": "El área de recreación tiene techo",
+      "qtype": "yesno",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "show_if": [],
+      "required": true,
+      "help": "Marcar Sí si existe cobertura superior permanente."
+    },
+    {
+      "id": "ar_07",
+      "type": "question",
+      "code": "AR_07",
+      "text": "Material predominante en el techo (marque una sola respuesta)",
+      "qtype": "select",
+      "options": [
+        "Losa H°A°",
+        "Chapa termoacústica con estructura metálica",
+        "Material cerámico (teja/tejuelón/tejuelita) con estructura de madera o de H°A°",
+        "Chapa de zinc con estructura metálica",
+        "Chapa de fibrocemento con estructura metálica",
+        "Paja con estructura de madera",
+        "Otro (especificar)"
+      ],
+      "show_if": [
+        {
+          "q": "AR_06",
+          "op": "eq",
+          "value": "Sí"
+        }
+      ],
+      "required": true,
+      "help": "Seleccionar el material que cubre la mayor superficie."
+    },
+    {
+      "id": "ar_07_otro",
+      "type": "question",
+      "code": "AR_07_OTRO",
+      "text": "Si seleccionó 'Otro', especificar material del techo",
+      "qtype": "text",
+      "options": [],
+      "show_if": [
+        {
+          "q": "AR_07",
+          "op": "eq",
+          "value": "Otro (especificar)"
+        },
+        {
+          "q": "AR_06",
+          "op": "eq",
+          "value": "Sí"
+        }
+      ],
+      "required": true,
+      "help": ""
+    },
+    {
+      "id": "ar_08",
+      "type": "question",
+      "code": "AR_08",
+      "text": "Estado del techo (marque una sola respuesta)",
+      "qtype": "radio",
+      "options": [
+        "Bueno",
+        "Regular",
+        "Malo"
+      ],
+      "show_if": [
+        {
+          "q": "AR_06",
+          "op": "eq",
+          "value": "Sí"
+        }
+      ],
+      "required": true,
+      "help": "Bueno: sin fallas relevantes, Regular: deterioro moderado o filtraciones puntuales, Malo: fallas graves, riesgo o inutilizable."
+    },
+    {
+      "id": "ar_sec_5",
+      "type": "section",
+      "code": "AR_PISO",
+      "text": "Piso",
+      "qtype": null,
+      "options": [],
+      "show_if": [],
+      "required": false,
+      "help": ""
+    },
+    {
+      "id": "ar_09",
+      "type": "question",
+      "code": "AR_09",
+      "text": "Material predominante en el piso (marque una sola respuesta)",
+      "qtype": "select",
+      "options": [
+        "Baldosas (layota, granito, cerámica, calcárea)",
+        "Ladrillo",
+        "Alisada o carpeta de cemento",
+        "Tierra",
+        "Otro (especificar)"
+      ],
+      "show_if": [],
+      "required": true,
+      "help": "Seleccionar el material que cubre la mayor superficie."
+    },
+    {
+      "id": "ar_09_otro",
+      "type": "question",
+      "code": "AR_09_OTRO",
+      "text": "Si seleccionó 'Otro', especificar material del piso",
+      "qtype": "text",
+      "options": [],
+      "show_if": [
+        {
+          "q": "AR_09",
+          "op": "eq",
+          "value": "Otro (especificar)"
+        }
+      ],
+      "required": true,
+      "help": ""
+    },
+    {
+      "id": "ar_10",
+      "type": "question",
+      "code": "AR_10",
+      "text": "Estado del piso (marque una sola respuesta)",
+      "qtype": "select",
+      "options": [
+        "Completo sin roturas",
+        "Completo con roturas",
+        "Incompleto",
+        "Con hundimientos",
+        "Otro (especificar)"
+      ],
+      "show_if": [],
+      "required": true,
+      "help": "Marcar según la condición predominante observada."
+    },
+    {
+      "id": "ar_10_otro",
+      "type": "question",
+      "code": "AR_10_OTRO",
+      "text": "Si seleccionó 'Otro', describir estado del piso",
+      "qtype": "text",
+      "options": [],
+      "show_if": [
+        {
+          "q": "AR_10",
+          "op": "eq",
+          "value": "Otro (especificar)"
+        }
+      ],
+      "required": true,
+      "help": ""
+    },
+    {
+      "id": "ar_11",
+      "type": "question",
+      "code": "AR_11",
+      "text": "Si el piso presenta roturas/hundimientos/incompleto, especificar m² afectados",
+      "qtype": "number",
+      "options": [],
+      "show_if": [
+        {
+          "q": "AR_10",
+          "op": "in",
+          "values": [
+            "Completo con roturas",
+            "Incompleto",
+            "Con hundimientos"
+          ]
+        }
+      ],
+      "required": true,
+      "help": "Registrar el área aproximada afectada. Si no es posible, estimar."
+    },
+    {
+      "id": "ar_sec_6",
+      "type": "section",
+      "code": "AR_ACC",
+      "text": "Accesibilidad",
+      "qtype": null,
+      "options": [],
+      "show_if": [],
+      "required": false,
+      "help": ""
+    },
+    {
+      "id": "ar_12",
+      "type": "question",
+      "code": "AR_12",
+      "text": "El área cuenta con rampas de acceso para estudiantes con discapacidad",
+      "qtype": "yesno",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "show_if": [],
+      "required": true,
+      "help": ""
+    },
+    {
+      "id": "ar_13",
+      "type": "question",
+      "code": "AR_13",
+      "text": "Si cuenta con rampas, cumple con la norma INTN de accesibilidad",
+      "qtype": "yesno",
+      "options": [
+        "Sí",
+        "No"
+      ],
+      "show_if": [
+        {
+          "q": "AR_12",
+          "op": "eq",
+          "value": "Sí"
+        }
+      ],
+      "required": true,
+      "help": "Consignar Sí solo si cumple pendiente, ancho y pasamanos mínimos observables. En duda, consignar No y describir."
+    }
+  ]
 }

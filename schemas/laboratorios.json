@@ -36,7 +36,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_2_1",
       "help": "Especifica motivos:___________________ Nota: Si marcó \"En Construcción\" pasar a relevar datos de la siguiente Aula/Dependencia/Laboratorio"
     },
@@ -65,7 +65,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_1",
       "help": "Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.2, 3.3 y 3.11 Nota: Si marco ésta opción PASAR A LA PREGUNTA 3.4. al 3.8 y 3.11 Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.9, 3.10 y 3.11 Nota: Si marcó ésta opción PASAR A LA PREGUNTA 3.9. al 3.11 Nota: Si marcó ésta opción PASAR A PARED."
     },
@@ -87,7 +87,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_2",
       "help": "Espeficar m2 afectados"
     },
@@ -109,7 +109,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_3",
       "help": "Espeficar m2 afectados"
     },
@@ -133,7 +133,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_4",
       "help": "Especifícar cantidad de tirantes afectados"
     },
@@ -155,7 +155,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_5",
       "help": "Espeficar m2 afectados"
     },
@@ -177,7 +177,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_6",
       "help": "Espeficar m2 afectados"
     },
@@ -200,7 +200,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_7",
       "help": ""
     },
@@ -222,7 +222,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_8",
       "help": "Espeficar m2 afectados"
     },
@@ -246,7 +246,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_9",
       "help": "Espeficar m2 afectados"
     },
@@ -270,7 +270,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_10",
       "help": "Espeficar m2 afectados"
     },
@@ -296,7 +296,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_3_11",
       "help": "Espeficar m2 afectados"
     },
@@ -322,7 +322,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_4_1",
       "help": ""
     },
@@ -336,7 +336,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_4_2",
       "help": "Espeficar m2 afectados"
     },
@@ -350,7 +350,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_4_3",
       "help": ""
     },
@@ -364,7 +364,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_4_4",
       "help": "Espeficar m2 afectados"
     },
@@ -378,7 +378,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_4_5",
       "help": "Espeficar m2 afectados"
     },
@@ -392,7 +392,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_4_6",
       "help": "Espeficar m2 afectados"
     },
@@ -406,7 +406,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_4_7",
       "help": "Espeficar m2 afectados"
     },
@@ -434,7 +434,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_5_1",
       "help": ""
     },
@@ -452,7 +452,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_5_2",
       "help": "Espeficar m2 afectados"
     },
@@ -467,7 +467,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_5_3",
       "help": ""
     },
@@ -492,7 +492,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_1",
       "help": "Nota: Si marcó \"NO\" pasar a la Pregunta 6.3"
     },
@@ -516,7 +516,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_2",
       "help": ""
     },
@@ -532,7 +532,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_3",
       "help": ""
     },
@@ -564,7 +564,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_4",
       "help": ""
     },
@@ -586,7 +586,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_5",
       "help": ""
     },
@@ -611,7 +611,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_6",
       "help": "Especificar cantidad dañada"
     },
@@ -640,7 +640,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_7",
       "help": ""
     },
@@ -665,7 +665,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "laboratorios_6_8",
       "help": ""
     },
@@ -690,7 +690,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "laboratorios_8_1",
       "help": ""
     },

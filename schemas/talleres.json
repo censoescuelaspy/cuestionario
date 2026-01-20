@@ -36,7 +36,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_2_1",
       "help": "Especifica motivos:___________________ Nota: Si marcó \"En Construcción\" pasar a relevar datos de la siguiente Aula/Dependencia/Laboratorio"
     },
@@ -65,7 +65,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_3_1",
       "help": "Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.2, 3.3 y 3.11 Nota: Si marco ésta opción PASAR A LA PREGUNTA 3.4. al 3.8 y 3.11 Nota: Si marcó esta opción debe PASAR A LA PREGUNTA 3.9, 3.10 y 3.11 Nota: Si marcó ésta opción PASAR A LA PREGUNTA 3.9. al 3.11 Nota: Si marcó ésta opción PASAR A PARED."
     },
@@ -87,7 +87,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_2",
       "help": "Espeficar m2 afectados"
     },
@@ -109,7 +109,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_3",
       "help": "Espeficar m2 afectados"
     },
@@ -133,7 +133,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_4",
       "help": "Especifícar defecto en (Marque): Especifícar cantidad de tirantes afectados"
     },
@@ -155,7 +155,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_5",
       "help": "Espeficar m2 afectados"
     },
@@ -177,7 +177,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_6",
       "help": "Espeficar m2 afectados"
     },
@@ -200,7 +200,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_7",
       "help": ""
     },
@@ -222,7 +222,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_8",
       "help": "Espeficar m2 afectados"
     },
@@ -246,7 +246,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_9",
       "help": "Espeficar m2 afectados"
     },
@@ -270,7 +270,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_10",
       "help": "Espeficar m2 afectados"
     },
@@ -296,7 +296,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_3_11",
       "help": "Espeficar m2 afectados"
     },
@@ -321,7 +321,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_4_1",
       "help": "Nota: Si marcó esta opción PASAR A LA PREG. 4.2 al 4.6 Nota: Si marcó esta opción PASAR A LA PREG. 4.7 Nota: Si marcó esta opción PASAR A PISO."
     },
@@ -343,7 +343,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_4_2",
       "help": "Espeficar m2 afectados"
     },
@@ -365,7 +365,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_4_3",
       "help": ""
     },
@@ -387,7 +387,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_4_4",
       "help": "Espeficar m2 afectados"
     },
@@ -409,7 +409,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_4_5",
       "help": "Espeficar m2 afectados"
     },
@@ -431,7 +431,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_4_6",
       "help": "Espeficar m2 afectados"
     },
@@ -453,7 +453,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_4_7",
       "help": "Espeficar m2 afectados"
     },
@@ -480,7 +480,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_5_1",
       "help": "Nota: Si marcó esta opción PASAR A INSTALACIÓN ELECTRICA"
     },
@@ -498,7 +498,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_5_2",
       "help": "Espeficar m2 afectados"
     },
@@ -523,7 +523,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_6_1",
       "help": "Nota: Si marcó \"NO\" pasar a la Pregunta 6.3"
     },
@@ -548,7 +548,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_6_2",
       "help": ""
     },
@@ -564,7 +564,7 @@
       ],
       "qtype": "checkbox",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_6_3",
       "help": ""
     },
@@ -596,7 +596,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_6_4",
       "help": ""
     },
@@ -619,7 +619,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_6_5",
       "help": ""
     },
@@ -644,7 +644,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_6_6",
       "help": "Especificar cantidad dañada"
     },
@@ -673,7 +673,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_6_7",
       "help": ""
     },
@@ -698,7 +698,7 @@
           ]
         }
       ],
-      "required": false,
+      "required": true,
       "id": "talleres_6_8",
       "help": ""
     },
@@ -723,7 +723,7 @@
       ],
       "qtype": "radio",
       "show_if": [],
-      "required": false,
+      "required": true,
       "id": "talleres_8_1",
       "help": ""
     },

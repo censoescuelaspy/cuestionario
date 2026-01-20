@@ -11,7 +11,6 @@ function setMode(isLogged){
 }
 function closeNav(){ document.body.classList.remove("nav-open"); }
 
-, debounce, safeText } from "./ui.js";
 import { loadSchema, renderForm } from "./forms.js";
 
 const STORAGE_KEY = "sidie_state_v1";
@@ -618,14 +617,62 @@ async function moduleForm(state, schema, moduleId, entityId){
   });
 
   const actions = el("div","btnrow sticky","");
-  const bSave = btn("Guardar módulo","btn", async () => {
-    // guardar respuestas visibles
+
+  const clearInvalid = () => {
+    const bad = form.querySelectorAll(".invalid");
+    bad.forEach(n => n.classList.remove("invalid"));
+    const hints = form.querySelectorAll(".invalid-hint");
+    hints.forEach(n => n.remove());
+  };
+
+  const isEmptyAns = (v) => {
+    if (v === undefined || v === null) return true;
+    if (Array.isArray(v)) return v.length === 0;
+    const s = String(v);
+    return s.trim().length === 0;
+  };
+
+  const validateRequired = () => {
+    clearInvalid();
+    const answers = formState.answers || {};
+    const missing = [];
+    schema.items.forEach(it => {
+      if (it.type !== "question") return;
+      const node = form.querySelector(`[data-item-code="${it.code}"]`);
+      const isHidden = node && node.classList.contains("hidden");
+      if (isHidden) return;
+      if (isEmptyAns(answers[it.code])){
+        missing.push(it);
+        if (node){
+          node.classList.add("invalid");
+          node.appendChild(el("div","invalid-hint","Campo obligatorio."));
+        }
+      }
+    });
+    if (missing.length){
+      const first = form.querySelector(`[data-item-code="${missing[0].code}"]`);
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+      toast(`Faltan ${missing.length} respuestas obligatorias. Complete los campos marcados.`, "warn");
+      return false;
+    }
+    return true;
+  };
+
+  const bDraft = btn("Guardar borrador","btn btn--light", async () => {
+    rec.answers = formState.answers || {};
+    saveState(state);
+    toast("Borrador guardado en el dispositivo.", "ok");
+  });
+
+  const bSend = btn("Validar y enviar","btn btn--primary", async () => {
+    // Validar obligatorios en el cliente (solo ítems visibles)
+    if (!validateRequired()) return;
+
     const answers = formState.answers || {};
     // filtrar solo ítems visibles
     const visible = {};
     schema.items.forEach(it => {
       if (it.type!=="question") return;
-      // visibilidad se evalúa en cliente
       const node = form.querySelector(`[data-item-code="${it.code}"]`);
       const isHidden = node && node.classList.contains("hidden");
       if (isHidden) return;
@@ -637,12 +684,11 @@ async function moduleForm(state, schema, moduleId, entityId){
 
     const payload = {
       visit_id: state.visit_id,
-      user: state.user.user,
       device_id: state.device_id,
-      school: state.school,
-      module_id: moduleId,
+      module_id: schema.module_id,
       entity_type: schema.entity_type,
       entity_id: entityId,
+      school: state.school,
       answers: visible,
       client_ts: new Date().toISOString(),
       offline: !navigator.onLine
@@ -651,20 +697,23 @@ async function moduleForm(state, schema, moduleId, entityId){
     if (!navigator.onLine){
       await enqueue({ type: "submit", payload });
       await updateQueueUI();
-      toast("Guardado en cola (offline).");
+      toast("Sin conexión: envío guardado en cola.", "warn");
       return;
     }
+
     try{
       await api.submit(state.token, payload);
-      toast("Envío exitoso.");
+      toast("Envío realizado correctamente.", "ok");
     }catch(e){
+      // si falla en online, encolar
       await enqueue({ type: "submit", payload });
       await updateQueueUI();
-      toast("No se pudo enviar, quedó en cola.");
+      toast("No se pudo enviar. Se guardó en cola para sincronizar.", "warn");
     }
   });
 
-  actions.appendChild(bSave);
+  actions.appendChild(bDraft);
+  actions.appendChild(bSend);
   const bReset = btn("Limpiar módulo","btn btn--danger", () => {
     openModal("Confirmación", "<div class='muted'>¿Desea limpiar las respuestas de este módulo en este dispositivo? Esta acción no borra lo ya sincronizado.</div>", [
       btn("Cancelar","btn btn--light", () => closeModal()),
